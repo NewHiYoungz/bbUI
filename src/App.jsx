@@ -1,22 +1,22 @@
-import { CodeSnippet } from './components/molecules';
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import { Layout } from './components/layout';
+import { Home, Marketplace, APIDetail, Pricing, Documentation, Dashboard, Auth } from './pages';
 
 function App() {
-  const sampleCode = `const greet = (name) => {
-  return \`Hello, \${name}!\`;
-};
-
-console.log(greet('World'));`;
-
   return (
-    <div className="min-h-screen bg-gray-50 p-8">
-      <h1 className="text-4xl font-bold text-primary mb-8">
-        Code Snippet Test
-      </h1>
-      <div className="max-w-2xl">
-        <CodeSnippet code={sampleCode} language="javascript" />
-      </div>
-    </div>
+    <Layout>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/marketplace" element={<Marketplace />} />
+        <Route path="/api/:id" element={<APIDetail />} />
+        <Route path="/pricing" element={<Pricing />} />
+        <Route path="/docs" element={<Documentation />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/login" element={<Auth />} />
+      </Routes>
+    </Layout>
   );
 }
 
-export default App
+export default App;
