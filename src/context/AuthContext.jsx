@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useMemo, useCallback } from 'react';
 import { mockUser } from '../data/mockUser';
 
 const AuthContext = createContext();
@@ -12,45 +12,43 @@ export const useAuth = () => {
 };
 
 export const AuthProvider = ({ children }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState(null);
-
-  // Check localStorage on mount
-  useEffect(() => {
+  const [isLoggedIn, setIsLoggedIn] = useState(() => {
     const storedAuth = localStorage.getItem('apimart_auth');
-    if (storedAuth === 'true') {
-      setIsLoggedIn(true);
-      setUser(mockUser);
-    }
-  }, []);
+    return storedAuth === 'true';
+  });
 
-  const login = (email, password) => {
+  const [user, setUser] = useState(() => {
+    const storedAuth = localStorage.getItem('apimart_auth');
+    return storedAuth === 'true' ? mockUser : null;
+  });
+
+  const login = useCallback(() => {
     // Mock login - accept any credentials
     setIsLoggedIn(true);
     setUser(mockUser);
     localStorage.setItem('apimart_auth', 'true');
     return true;
-  };
+  }, []);
 
-  const logout = () => {
+  const logout = useCallback(() => {
     setIsLoggedIn(false);
     setUser(null);
     localStorage.removeItem('apimart_auth');
-  };
+  }, []);
 
-  const generateNewAPIKey = () => {
+  const generateNewAPIKey = useCallback(() => {
     const newKey = `sk-apimart-${Math.random().toString(36).substring(2, 15)}`;
     setUser({ ...user, apiKey: newKey });
     return newKey;
-  };
+  }, [user]);
 
-  const value = {
+  const value = useMemo(() => ({
     isLoggedIn,
     user,
     login,
     logout,
     generateNewAPIKey,
-  };
+  }), [isLoggedIn, user, login, logout, generateNewAPIKey]);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

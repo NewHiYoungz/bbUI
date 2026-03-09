@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useMemo } from 'react';
-import { mockAPIs, getAPIById, searchAPIs, getAPIsByCategory } from '../data/mockAPIs';
+import { mockAPIs, getAPIById, searchAPIs } from '../data/mockAPIs';
 
 const APIContext = createContext();
 
