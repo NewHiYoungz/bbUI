@@ -1,4 +1,5 @@
-import { Button } from './components/atoms';
+import { Button, Input } from './components/atoms';
+import { FiSearch } from 'react-icons/fi';
 
 function App() {
   return (
@@ -11,6 +12,10 @@ function App() {
         <Button variant="secondary">Secondary Button</Button>
         <Button variant="accent">Accent Button</Button>
         <Button variant="primary" disabled>Disabled</Button>
+      </div>
+      <div className="space-y-4 max-w-md">
+        <Input placeholder="Enter text..." />
+        <Input placeholder="Search..." icon={<FiSearch />} />
       </div>
     </div>
   );

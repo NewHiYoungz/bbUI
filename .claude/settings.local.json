@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:apimart.ai)",
+      "WebSearch",
+      "Bash(git:*)",
+      "Bash(npm create:*)",
+      "Bash(cp:*)",
+      "Bash(npm install:*)",
+      "Bash(curl:*)",
+      "Bash(pkill:*)",
+      "Bash(node:*)",
+      "Bash(npx tailwindcss:*)",
+      "Bash(./node_modules/.bin/tailwindcss init:*)",
+      "Bash(npm list:*)",
+      "Bash(timeout 10 npm run:*)",
+      "Bash(npm run:*)",
+      "Bash(cat:*)",
+      "Bash(npm outdated:*)",
+      "Bash(npm audit:*)",
+      "Bash(npm info:*)",
+      "Bash(npm ls:*)",
+      "Bash(python3:*)",
+      "WebFetch(domain:localhost)"
+    ]
+  }
+}
