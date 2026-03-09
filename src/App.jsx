@@ -1,14 +1,19 @@
+import { Button } from './components/atoms';
+
 function App() {
   return (
-    <div className="min-h-screen bg-white">
-      <h1 className="text-4xl font-bold text-primary p-8">
-        AI API Platform
+    <div className="min-h-screen bg-white p-8 space-y-4">
+      <h1 className="text-4xl font-bold text-primary mb-8">
+        Component Testing
       </h1>
-      <button className="bg-primary text-white px-6 py-3 rounded-custom ml-8 hover:opacity-90">
-        Test Button
-      </button>
+      <div className="space-x-4">
+        <Button variant="primary">Primary Button</Button>
+        <Button variant="secondary">Secondary Button</Button>
+        <Button variant="accent">Accent Button</Button>
+        <Button variant="primary" disabled>Disabled</Button>
+      </div>
     </div>
-  )
+  );
 }
 
 export default App
