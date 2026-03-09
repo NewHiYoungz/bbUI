@@ -1,4 +1,4 @@
-import { Button, Input } from './components/atoms';
+import { Button, Input, Badge } from './components/atoms';
 import { FiSearch } from 'react-icons/fi';
 
 function App() {
@@ -16,6 +16,12 @@ function App() {
       <div className="space-y-4 max-w-md">
         <Input placeholder="Enter text..." />
         <Input placeholder="Search..." icon={<FiSearch />} />
+      </div>
+      <div className="space-x-2">
+        <Badge variant="default">Default</Badge>
+        <Badge variant="primary">Primary</Badge>
+        <Badge variant="accent">Accent</Badge>
+        <Badge variant="success">Success</Badge>
       </div>
     </div>
   );
