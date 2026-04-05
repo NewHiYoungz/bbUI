@@ -1,7 +1,7 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { Layout } from './components/layout';
-import { Home, Marketplace, APIDetail, Pricing, Documentation, Dashboard, Auth } from './pages';
+import { Home, Marketplace, APIDetail, Pricing, Documentation, Dashboard, Auth, Chat } from './pages';
 
 function App() {
   return (
@@ -14,6 +14,7 @@ function App() {
         <Route path="/docs" element={<Documentation />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/login" element={<Auth />} />
+        <Route path="/chat" element={<Chat />} />
       </Routes>
     </Layout>
   );

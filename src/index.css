@@ -4,11 +4,120 @@
 
 @layer base {
   body {
-    @apply text-text-dark bg-white;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-      sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    @apply text-text-dark bg-white antialiased;
+    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   }
+
+  code, pre {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+@layer components {
+  .section-container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .section-padding {
+    @apply py-16 md:py-24;
+  }
+
+  .btn-primary {
+    @apply px-6 py-3 bg-primary text-white font-semibold rounded-[10px]
+           hover:bg-opacity-90 active:scale-[0.97] transition-all duration-200;
+  }
+
+  .btn-secondary {
+    @apply px-6 py-3 bg-white text-primary font-semibold rounded-[10px]
+           border-2 border-primary hover:bg-primary hover:text-white
+           active:scale-[0.97] transition-all duration-200;
+  }
+
+  .btn-accent {
+    @apply px-6 py-3 bg-accent text-white font-semibold rounded-[10px]
+           hover:bg-opacity-90 active:scale-[0.97] transition-all duration-200;
+  }
+
+  .card-base {
+    @apply bg-white border-2 border-border-light rounded-[10px] p-6
+           transition-all duration-200;
+  }
+
+  .card-hover {
+    @apply card-base hover:border-primary hover:shadow-lg hover:shadow-primary/5 cursor-pointer;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-text-secondary/30 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-text-secondary/50;
+}
+
+/* Provider logo scroll animation */
+@keyframes scroll-logos {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-scroll-logos {
+  animation: scroll-logos 30s linear infinite;
+}
+
+/* FAQ accordion transition */
+.faq-answer {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s ease;
+}
+
+.faq-answer.open {
+  grid-template-rows: 1fr;
+}
+
+.faq-answer > div {
+  overflow: hidden;
+}
+
+/* Stagger animation for cards */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.5s ease forwards;
+  opacity: 0;
+}
+
+/* Chat bubble styling */
+.chat-bubble-user {
+  @apply bg-primary/10 text-text-dark rounded-[10px] rounded-br-sm;
+}
+
+.chat-bubble-ai {
+  @apply bg-gray-50 text-text-dark rounded-[10px] rounded-bl-sm;
 }

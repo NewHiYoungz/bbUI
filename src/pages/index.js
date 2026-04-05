@@ -5,3 +5,4 @@ export { default as Pricing } from './Pricing';
 export { default as Documentation } from './Documentation';
 export { default as Dashboard } from './Dashboard';
 export { default as Auth } from './Auth';
+export { default as Chat } from './Chat';

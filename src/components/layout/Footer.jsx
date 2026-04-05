@@ -1,65 +1,109 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FiGithub, FiTwitter, FiLinkedin } from 'react-icons/fi';
+import { FiMail } from 'react-icons/fi';
+import { FaDiscord, FaXTwitter } from 'react-icons/fa6';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
+  const marketLinks = [
+    { name: 'Seedream 5.0 Lite API', path: '/api/seedream-5-lite' },
+    { name: 'Seedream 4.5 API', path: '/api/seedream-4-5' },
+    { name: 'Sora 2 API', path: '/api/sora-2' },
+    { name: 'Sora 2 Pro API', path: '/api/sora-2-pro' },
+    { name: 'Veo 3.1 API', path: '/api/veo-3-1' },
+    { name: 'Nano Banana 2 API', path: '/api/nano-banana-2' },
+    { name: '4o Image API', path: '/api/gpt-4o-image' },
+    { name: 'ALL Models', path: '/marketplace' },
+  ];
+
+  const alternativeLinks = [
+    { name: 'Fal.ai Alternative', path: '#' },
+    { name: 'Replicate Alternative', path: '#' },
+    { name: 'AIMLAPI Alternative', path: '#' },
+  ];
+
+  const resourceLinks = [
+    { name: 'API Documentation', path: '/docs' },
+    { name: 'Privacy Policy', path: '#' },
+    { name: 'Terms of Service', path: '#' },
+    { name: 'Cookie Policy', path: '#' },
+  ];
+
   return (
-    <footer className="bg-white border-t-2 border-border-light mt-auto">
-      <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+    <footer className="bg-white border-t border-border-light mt-auto">
+      <div className="section-container py-12">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          {/* Market */}
+          <div>
+            <h4 className="font-semibold text-text-dark mb-4 text-sm">Market</h4>
+            <ul className="space-y-2.5">
+              {marketLinks.map((link) => (
+                <li key={link.name}>
+                  <Link to={link.path} className="text-text-secondary hover:text-primary text-sm transition-colors">
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Alternative */}
+          <div>
+            <h4 className="font-semibold text-text-dark mb-4 text-sm">Alternative</h4>
+            <ul className="space-y-2.5">
+              {alternativeLinks.map((link) => (
+                <li key={link.name}>
+                  <Link to={link.path} className="text-text-secondary hover:text-primary text-sm transition-colors">
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Resources */}
+          <div>
+            <h4 className="font-semibold text-text-dark mb-4 text-sm">Resources</h4>
+            <ul className="space-y-2.5">
+              {resourceLinks.map((link) => (
+                <li key={link.name}>
+                  <Link to={link.path} className="text-text-secondary hover:text-primary text-sm transition-colors">
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
           {/* Brand */}
           <div>
-            <div className="flex items-center space-x-2 mb-4">
-              <div className="w-8 h-8 bg-primary rounded-lg"></div>
-              <span className="text-xl font-bold text-text-dark">APIMart</span>
+            <div className="flex items-center gap-2 mb-4">
+              <div className="w-7 h-7 bg-primary rounded-lg flex items-center justify-center">
+                <span className="text-white font-bold text-xs">A</span>
+              </div>
+              <span className="text-base font-bold text-text-dark">APIMart</span>
             </div>
-            <p className="text-text-secondary text-sm">
+            <p className="text-text-secondary text-sm mb-6 leading-relaxed">
               One API for 500+ AI models. Simple, fast, and reliable.
             </p>
-          </div>
-
-          {/* Product */}
-          <div>
-            <h4 className="font-bold text-text-dark mb-4">Product</h4>
-            <ul className="space-y-2">
-              <li><Link to="/marketplace" className="text-text-secondary hover:text-primary text-sm">API Marketplace</Link></li>
-              <li><Link to="/pricing" className="text-text-secondary hover:text-primary text-sm">Pricing</Link></li>
-              <li><Link to="/docs" className="text-text-secondary hover:text-primary text-sm">Documentation</Link></li>
-            </ul>
-          </div>
-
-          {/* Company */}
-          <div>
-            <h4 className="font-bold text-text-dark mb-4">Company</h4>
-            <ul className="space-y-2">
-              <li><a href="#" className="text-text-secondary hover:text-primary text-sm">About</a></li>
-              <li><a href="#" className="text-text-secondary hover:text-primary text-sm">Blog</a></li>
-              <li><a href="#" className="text-text-secondary hover:text-primary text-sm">Careers</a></li>
-            </ul>
-          </div>
-
-          {/* Social */}
-          <div>
-            <h4 className="font-bold text-text-dark mb-4">Connect</h4>
-            <div className="flex space-x-4">
-              <a href="#" className="text-text-secondary hover:text-primary">
-                <FiGithub size={20} />
+            <div className="flex items-center gap-3">
+              <a href="#" className="w-8 h-8 rounded-lg bg-gray-50 flex items-center justify-center text-text-secondary hover:text-primary hover:bg-primary/5 transition-colors">
+                <FaDiscord size={16} />
               </a>
-              <a href="#" className="text-text-secondary hover:text-primary">
-                <FiTwitter size={20} />
+              <a href="#" className="w-8 h-8 rounded-lg bg-gray-50 flex items-center justify-center text-text-secondary hover:text-primary hover:bg-primary/5 transition-colors">
+                <FaXTwitter size={14} />
               </a>
-              <a href="#" className="text-text-secondary hover:text-primary">
-                <FiLinkedin size={20} />
+              <a href="#" className="w-8 h-8 rounded-lg bg-gray-50 flex items-center justify-center text-text-secondary hover:text-primary hover:bg-primary/5 transition-colors">
+                <FiMail size={16} />
               </a>
             </div>
           </div>
         </div>
 
-        <div className="border-t border-border-light mt-8 pt-8 text-center">
-          <p className="text-text-secondary text-sm">
-            © {currentYear} APIMart. All rights reserved.
+        <div className="border-t border-border-light mt-10 pt-6 text-center">
+          <p className="text-text-secondary text-xs">
+            &copy; {currentYear} APIMart. All rights reserved.
           </p>
         </div>
       </div>
