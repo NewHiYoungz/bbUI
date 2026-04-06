@@ -79,7 +79,7 @@ const Footer = () => {
           {/* Brand */}
           <div>
             <div className="flex items-center gap-2.5 mb-4">
-              <img src="/logoNIcon/supremind-ai.png" alt="supremind.ai" className="h-7 w-auto" />
+              <img src="/logoNIcon/supremind-ai-2.png" alt="supremind.ai" className="h-7 w-auto" />
               <span className="text-base font-bold text-text-dark">supremind.ai</span>
             </div>
             <p className="text-text-secondary text-sm mb-6 leading-relaxed">

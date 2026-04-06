@@ -75,7 +75,7 @@ const Header = () => {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2.5 shrink-0">
-            <img src="/logoNIcon/supremind-ai.png" alt="supremind.ai" className="h-8 w-auto" />
+            <img src="/logoNIcon/supremind-ai-2.png" alt="supremind.ai" className="h-8 w-auto" />
             <span className="text-lg font-bold text-text-dark">supremind.ai</span>
           </Link>
 
