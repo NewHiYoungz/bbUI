@@ -50,8 +50,6 @@ const Header = () => {
   const dropdownTimeout = useRef(null);
   const userMenuRef = useRef(null);
 
-  // Close menus on navigation (handled in Link onClick handlers)
-
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (userMenuRef.current && !userMenuRef.current.contains(e.target)) {
@@ -72,15 +70,13 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-white border-b border-border-light sticky top-0 z-50">
+    <header className="bg-surface border-b border-border-light sticky top-0 z-50">
       <div className="section-container">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 shrink-0">
-            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">A</span>
-            </div>
-            <span className="text-lg font-bold text-text-dark">APIMart</span>
+          <Link to="/" className="flex items-center gap-2.5 shrink-0">
+            <img src="/logoNIcon/supremind-ai.png" alt="supremind.ai" className="h-8 w-auto" />
+            <span className="text-lg font-bold text-text-dark">supremind.ai</span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -95,11 +91,11 @@ const Header = () => {
                 {menu.children ? (
                   <button
                     className={`flex items-center gap-1 px-3 py-2 text-sm font-medium rounded-lg transition-colors
-                      ${openDropdown === idx ? 'text-primary bg-primary/5' : 'text-text-dark hover:text-primary hover:bg-gray-50'}`}
+                      ${openDropdown === idx ? 'text-primary bg-primary/10' : 'text-text-secondary hover:text-text-dark hover:bg-surface-light'}`}
                   >
                     {menu.label}
                     {menu.badge && (
-                      <span className="px-1.5 py-0.5 text-[10px] font-bold bg-accent text-white rounded-md leading-none">
+                      <span className="px-1.5 py-0.5 text-[10px] font-bold bg-primary text-white rounded-md leading-none">
                         {menu.badge}
                       </span>
                     )}
@@ -109,7 +105,7 @@ const Header = () => {
                   <Link
                     to={menu.path}
                     className={`flex items-center gap-1 px-3 py-2 text-sm font-medium rounded-lg transition-colors
-                      ${location.pathname === menu.path ? 'text-primary bg-primary/5' : 'text-text-dark hover:text-primary hover:bg-gray-50'}`}
+                      ${location.pathname === menu.path ? 'text-primary bg-primary/10' : 'text-text-secondary hover:text-text-dark hover:bg-surface-light'}`}
                   >
                     {menu.label}
                     {menu.external && <FiExternalLink className="w-3 h-3" />}
@@ -118,17 +114,17 @@ const Header = () => {
 
                 {/* Dropdown */}
                 {menu.children && openDropdown === idx && (
-                  <div className="absolute top-full left-0 mt-1 w-56 bg-white rounded-[10px] border border-border-light shadow-dropdown py-2 z-50">
+                  <div className="absolute top-full left-0 mt-1 w-56 bg-surface rounded-[10px] border border-border-light shadow-dropdown py-2 z-50">
                     {menu.children.map((child) => (
                       <Link
                         key={child.id}
                         to={`/api/${child.id}`}
                         onClick={() => setOpenDropdown(null)}
-                        className="flex items-center justify-between px-4 py-2.5 text-sm text-text-dark hover:bg-gray-50 hover:text-primary transition-colors"
+                        className="flex items-center justify-between px-4 py-2.5 text-sm text-text-secondary hover:bg-surface-light hover:text-primary transition-colors"
                       >
                         <span>{child.name}</span>
                         {child.badge && (
-                          <span className="px-1.5 py-0.5 text-[10px] font-bold bg-accent text-white rounded-md leading-none">
+                          <span className="px-1.5 py-0.5 text-[10px] font-bold bg-primary text-white rounded-md leading-none">
                             {child.badge}
                           </span>
                         )}
@@ -146,27 +142,27 @@ const Header = () => {
               <div className="relative" ref={userMenuRef}>
                 <button
                   onClick={() => setUserMenuOpen(!userMenuOpen)}
-                  className="flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-lg text-text-dark hover:bg-gray-50 transition-colors"
+                  className="flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-lg text-text-secondary hover:bg-surface-light transition-colors"
                 >
-                  <div className="w-7 h-7 bg-primary/10 rounded-full flex items-center justify-center">
+                  <div className="w-7 h-7 bg-primary/15 rounded-full flex items-center justify-center">
                     <FiUser className="w-3.5 h-3.5 text-primary" />
                   </div>
-                  <span>{user?.name}</span>
+                  <span className="text-text-dark">{user?.name}</span>
                   <FiChevronDown className={`w-3.5 h-3.5 transition-transform ${userMenuOpen ? 'rotate-180' : ''}`} />
                 </button>
 
                 {userMenuOpen && (
-                  <div className="absolute right-0 top-full mt-1 w-48 bg-white rounded-[10px] border border-border-light shadow-dropdown py-2 z-50">
-                    <Link to="/dashboard" className="flex items-center gap-2 px-4 py-2.5 text-sm text-text-dark hover:bg-gray-50 hover:text-primary transition-colors">
+                  <div className="absolute right-0 top-full mt-1 w-48 bg-surface rounded-[10px] border border-border-light shadow-dropdown py-2 z-50">
+                    <Link to="/dashboard" className="flex items-center gap-2 px-4 py-2.5 text-sm text-text-secondary hover:bg-surface-light hover:text-primary transition-colors">
                       <FiKey className="w-4 h-4" /> API Keys
                     </Link>
-                    <Link to="/dashboard?tab=billing" className="flex items-center gap-2 px-4 py-2.5 text-sm text-text-dark hover:bg-gray-50 hover:text-primary transition-colors">
+                    <Link to="/dashboard?tab=billing" className="flex items-center gap-2 px-4 py-2.5 text-sm text-text-secondary hover:bg-surface-light hover:text-primary transition-colors">
                       <FiUser className="w-4 h-4" /> Billing
                     </Link>
                     <div className="border-t border-border-light my-1" />
                     <button
                       onClick={logout}
-                      className="flex items-center gap-2 w-full px-4 py-2.5 text-sm text-red-500 hover:bg-red-50 transition-colors"
+                      className="flex items-center gap-2 w-full px-4 py-2.5 text-sm text-red-400 hover:bg-red-500/10 transition-colors"
                     >
                       <FiLogOut className="w-4 h-4" /> Sign Out
                     </button>
@@ -177,7 +173,7 @@ const Header = () => {
               <>
                 <button
                   onClick={() => navigate('/login')}
-                  className="px-4 py-2 text-sm font-medium text-text-dark hover:text-primary transition-colors"
+                  className="px-4 py-2 text-sm font-medium text-text-secondary hover:text-text-dark transition-colors"
                 >
                   Log in
                 </button>
@@ -193,7 +189,7 @@ const Header = () => {
 
           {/* Mobile Menu Button */}
           <button
-            className="lg:hidden p-2 text-text-dark hover:bg-gray-50 rounded-lg"
+            className="lg:hidden p-2 text-text-secondary hover:bg-surface-light rounded-lg"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
             {mobileMenuOpen ? <FiX size={22} /> : <FiMenu size={22} />}
@@ -203,7 +199,7 @@ const Header = () => {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-white border-t border-border-light">
+        <div className="lg:hidden bg-surface border-t border-border-light">
           <div className="section-container py-4 space-y-1">
             {navMenus.map((menu, idx) => (
               <div key={idx}>
@@ -211,12 +207,12 @@ const Header = () => {
                   <>
                     <button
                       onClick={() => setOpenDropdown(openDropdown === idx ? null : idx)}
-                      className="flex items-center justify-between w-full px-3 py-3 text-sm font-medium text-text-dark rounded-lg hover:bg-gray-50"
+                      className="flex items-center justify-between w-full px-3 py-3 text-sm font-medium text-text-secondary rounded-lg hover:bg-surface-light"
                     >
                       <span className="flex items-center gap-2">
                         {menu.label}
                         {menu.badge && (
-                          <span className="px-1.5 py-0.5 text-[10px] font-bold bg-accent text-white rounded-md">
+                          <span className="px-1.5 py-0.5 text-[10px] font-bold bg-primary text-white rounded-md">
                             {menu.badge}
                           </span>
                         )}
@@ -229,11 +225,11 @@ const Header = () => {
                           <Link
                             key={child.id}
                             to={`/api/${child.id}`}
-                            className="flex items-center justify-between px-3 py-2.5 text-sm text-text-secondary hover:text-primary rounded-lg"
+                            className="flex items-center justify-between px-3 py-2.5 text-sm text-text-muted hover:text-primary rounded-lg"
                           >
                             <span>{child.name}</span>
                             {child.badge && (
-                              <span className="px-1.5 py-0.5 text-[10px] font-bold bg-accent text-white rounded-md">
+                              <span className="px-1.5 py-0.5 text-[10px] font-bold bg-primary text-white rounded-md">
                                 {child.badge}
                               </span>
                             )}
@@ -245,7 +241,7 @@ const Header = () => {
                 ) : (
                   <Link
                     to={menu.path}
-                    className="flex items-center gap-2 px-3 py-3 text-sm font-medium text-text-dark rounded-lg hover:bg-gray-50"
+                    className="flex items-center gap-2 px-3 py-3 text-sm font-medium text-text-secondary rounded-lg hover:bg-surface-light"
                   >
                     {menu.label}
                   </Link>
@@ -259,7 +255,7 @@ const Header = () => {
                   <button onClick={() => navigate('/dashboard')} className="btn-secondary w-full text-sm">
                     Dashboard
                   </button>
-                  <button onClick={() => { logout(); setMobileMenuOpen(false); }} className="w-full px-4 py-2 text-sm text-red-500 hover:bg-red-50 rounded-lg transition-colors">
+                  <button onClick={() => { logout(); setMobileMenuOpen(false); }} className="w-full px-4 py-2 text-sm text-red-400 hover:bg-red-500/10 rounded-lg transition-colors">
                     Sign Out
                   </button>
                 </>

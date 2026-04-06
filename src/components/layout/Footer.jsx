@@ -31,8 +31,8 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-white border-t border-border-light mt-auto">
-      <div className="section-container py-12">
+    <footer className="bg-surface border-t border-border-light mt-auto circuit-bg">
+      <div className="section-container py-12 relative z-10">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {/* Market */}
           <div>
@@ -78,23 +78,21 @@ const Footer = () => {
 
           {/* Brand */}
           <div>
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-7 h-7 bg-primary rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-xs">A</span>
-              </div>
-              <span className="text-base font-bold text-text-dark">APIMart</span>
+            <div className="flex items-center gap-2.5 mb-4">
+              <img src="/logoNIcon/supremind-ai.png" alt="supremind.ai" className="h-7 w-auto" />
+              <span className="text-base font-bold text-text-dark">supremind.ai</span>
             </div>
             <p className="text-text-secondary text-sm mb-6 leading-relaxed">
               One API for 500+ AI models. Simple, fast, and reliable.
             </p>
             <div className="flex items-center gap-3">
-              <a href="#" className="w-8 h-8 rounded-lg bg-gray-50 flex items-center justify-center text-text-secondary hover:text-primary hover:bg-primary/5 transition-colors">
+              <a href="#" className="w-8 h-8 rounded-lg bg-surface-light flex items-center justify-center text-text-secondary hover:text-primary hover:bg-primary/10 transition-colors">
                 <FaDiscord size={16} />
               </a>
-              <a href="#" className="w-8 h-8 rounded-lg bg-gray-50 flex items-center justify-center text-text-secondary hover:text-primary hover:bg-primary/5 transition-colors">
+              <a href="#" className="w-8 h-8 rounded-lg bg-surface-light flex items-center justify-center text-text-secondary hover:text-primary hover:bg-primary/10 transition-colors">
                 <FaXTwitter size={14} />
               </a>
-              <a href="#" className="w-8 h-8 rounded-lg bg-gray-50 flex items-center justify-center text-text-secondary hover:text-primary hover:bg-primary/5 transition-colors">
+              <a href="#" className="w-8 h-8 rounded-lg bg-surface-light flex items-center justify-center text-text-secondary hover:text-primary hover:bg-primary/10 transition-colors">
                 <FiMail size={16} />
               </a>
             </div>
@@ -102,8 +100,8 @@ const Footer = () => {
         </div>
 
         <div className="border-t border-border-light mt-10 pt-6 text-center">
-          <p className="text-text-secondary text-xs">
-            &copy; {currentYear} APIMart. All rights reserved.
+          <p className="text-text-muted text-xs">
+            &copy; {currentYear} supremind.ai. All rights reserved.
           </p>
         </div>
       </div>

@@ -17,7 +17,7 @@ export const mockAPIs = [
     codeExamples: {
       python: `from openai import OpenAI
 client = OpenAI(
-    base_url="https://api.apimart.ai/v1",
+    base_url="https://api.supremind.ai/v1",
     api_key="YOUR_API_KEY"
 )
 
@@ -29,7 +29,7 @@ print(response.choices[0].message.content)`,
       javascript: `import OpenAI from 'openai';
 
 const client = new OpenAI({
-  baseURL: 'https://api.apimart.ai/v1',
+  baseURL: 'https://api.supremind.ai/v1',
   apiKey: 'YOUR_API_KEY',
 });
 
@@ -39,7 +39,7 @@ const response = await client.chat.completions.create({
 });
 
 console.log(response.choices[0].message.content);`,
-      curl: `curl https://api.apimart.ai/v1/chat/completions \\
+      curl: `curl https://api.supremind.ai/v1/chat/completions \\
   -H "Authorization: Bearer YOUR_API_KEY" \\
   -H "Content-Type: application/json" \\
   -d '{
@@ -65,7 +65,7 @@ console.log(response.choices[0].message.content);`,
     codeExamples: {
       python: `from openai import OpenAI
 client = OpenAI(
-    base_url="https://api.apimart.ai/v1",
+    base_url="https://api.supremind.ai/v1",
     api_key="YOUR_API_KEY"
 )
 
@@ -77,7 +77,7 @@ print(response.choices[0].message.content)`,
       javascript: `import OpenAI from 'openai';
 
 const client = new OpenAI({
-  baseURL: 'https://api.apimart.ai/v1',
+  baseURL: 'https://api.supremind.ai/v1',
   apiKey: 'YOUR_API_KEY',
 });
 
@@ -87,7 +87,7 @@ const response = await client.chat.completions.create({
 });
 
 console.log(response.choices[0].message.content);`,
-      curl: `curl https://api.apimart.ai/v1/chat/completions \\
+      curl: `curl https://api.supremind.ai/v1/chat/completions \\
   -H "Authorization: Bearer YOUR_API_KEY" \\
   -H "Content-Type: application/json" \\
   -d '{
@@ -113,7 +113,7 @@ console.log(response.choices[0].message.content);`,
     codeExamples: {
       python: `from openai import OpenAI
 client = OpenAI(
-    base_url="https://api.apimart.ai/v1",
+    base_url="https://api.supremind.ai/v1",
     api_key="YOUR_API_KEY"
 )
 
@@ -125,7 +125,7 @@ print(message.choices[0].message.content)`,
       javascript: `import OpenAI from 'openai';
 
 const client = new OpenAI({
-  baseURL: 'https://api.apimart.ai/v1',
+  baseURL: 'https://api.supremind.ai/v1',
   apiKey: 'YOUR_API_KEY',
 });
 
@@ -135,7 +135,7 @@ const message = await client.chat.completions.create({
 });
 
 console.log(message.choices[0].message.content);`,
-      curl: `curl https://api.apimart.ai/v1/chat/completions \\
+      curl: `curl https://api.supremind.ai/v1/chat/completions \\
   -H "Authorization: Bearer YOUR_API_KEY" \\
   -H "Content-Type: application/json" \\
   -d '{
@@ -161,7 +161,7 @@ console.log(message.choices[0].message.content);`,
     codeExamples: {
       python: `from openai import OpenAI
 client = OpenAI(
-    base_url="https://api.apimart.ai/v1",
+    base_url="https://api.supremind.ai/v1",
     api_key="YOUR_API_KEY"
 )
 
@@ -173,7 +173,7 @@ print(response.choices[0].message.content)`,
       javascript: `import OpenAI from 'openai';
 
 const client = new OpenAI({
-  baseURL: 'https://api.apimart.ai/v1',
+  baseURL: 'https://api.supremind.ai/v1',
   apiKey: 'YOUR_API_KEY',
 });
 
@@ -183,7 +183,7 @@ const response = await client.chat.completions.create({
 });
 
 console.log(response.choices[0].message.content);`,
-      curl: `curl https://api.apimart.ai/v1/chat/completions \\
+      curl: `curl https://api.supremind.ai/v1/chat/completions \\
   -H "Authorization: Bearer YOUR_API_KEY" \\
   -H "Content-Type: application/json" \\
   -d '{
@@ -209,7 +209,7 @@ console.log(response.choices[0].message.content);`,
     codeExamples: {
       python: `from openai import OpenAI
 client = OpenAI(
-    base_url="https://api.apimart.ai/v1",
+    base_url="https://api.supremind.ai/v1",
     api_key="YOUR_API_KEY"
 )
 
@@ -221,7 +221,7 @@ print(response.choices[0].message.content)`,
       javascript: `import OpenAI from 'openai';
 
 const client = new OpenAI({
-  baseURL: 'https://api.apimart.ai/v1',
+  baseURL: 'https://api.supremind.ai/v1',
   apiKey: 'YOUR_API_KEY',
 });
 
@@ -231,7 +231,7 @@ const response = await client.chat.completions.create({
 });
 
 console.log(response.choices[0].message.content);`,
-      curl: `curl https://api.apimart.ai/v1/chat/completions \\
+      curl: `curl https://api.supremind.ai/v1/chat/completions \\
   -H "Authorization: Bearer YOUR_API_KEY" \\
   -H "Content-Type: application/json" \\
   -d '{
@@ -257,7 +257,7 @@ console.log(response.choices[0].message.content);`,
     codeExamples: {
       python: `from openai import OpenAI
 client = OpenAI(
-    base_url="https://api.apimart.ai/v1",
+    base_url="https://api.supremind.ai/v1",
     api_key="YOUR_API_KEY"
 )
 
@@ -269,7 +269,7 @@ print(response.choices[0].message.content)`,
       javascript: `import OpenAI from 'openai';
 
 const client = new OpenAI({
-  baseURL: 'https://api.apimart.ai/v1',
+  baseURL: 'https://api.supremind.ai/v1',
   apiKey: 'YOUR_API_KEY',
 });
 
@@ -279,7 +279,7 @@ const response = await client.chat.completions.create({
 });
 
 console.log(response.choices[0].message.content);`,
-      curl: `curl https://api.apimart.ai/v1/chat/completions \\
+      curl: `curl https://api.supremind.ai/v1/chat/completions \\
   -H "Authorization: Bearer YOUR_API_KEY" \\
   -H "Content-Type: application/json" \\
   -d '{
@@ -313,7 +313,7 @@ console.log(response.choices[0].message.content);`,
     codeExamples: {
       python: `from openai import OpenAI
 client = OpenAI(
-    base_url="https://api.apimart.ai/v1",
+    base_url="https://api.supremind.ai/v1",
     api_key="YOUR_API_KEY"
 )
 
@@ -324,7 +324,7 @@ response = client.videos.generate(
     aspect_ratio="16:9"
 )
 print(response.video_url)`,
-      javascript: `const response = await fetch('https://api.apimart.ai/v1/videos/generate', {
+      javascript: `const response = await fetch('https://api.supremind.ai/v1/videos/generate', {
   method: 'POST',
   headers: {
     'Authorization': 'Bearer YOUR_API_KEY',
@@ -340,7 +340,7 @@ print(response.video_url)`,
 
 const data = await response.json();
 console.log(data.video_url);`,
-      curl: `curl https://api.apimart.ai/v1/videos/generate \\
+      curl: `curl https://api.supremind.ai/v1/videos/generate \\
   -H "Authorization: Bearer YOUR_API_KEY" \\
   -H "Content-Type: application/json" \\
   -d '{
@@ -367,7 +367,7 @@ console.log(data.video_url);`,
     codeExamples: {
       python: `from openai import OpenAI
 client = OpenAI(
-    base_url="https://api.apimart.ai/v1",
+    base_url="https://api.supremind.ai/v1",
     api_key="YOUR_API_KEY"
 )
 
@@ -378,7 +378,7 @@ response = client.videos.generate(
     aspect_ratio="16:9"
 )
 print(response.video_url)`,
-      javascript: `const response = await fetch('https://api.apimart.ai/v1/videos/generate', {
+      javascript: `const response = await fetch('https://api.supremind.ai/v1/videos/generate', {
   method: 'POST',
   headers: {
     'Authorization': 'Bearer YOUR_API_KEY',
@@ -394,7 +394,7 @@ print(response.video_url)`,
 
 const data = await response.json();
 console.log(data.video_url);`,
-      curl: `curl https://api.apimart.ai/v1/videos/generate \\
+      curl: `curl https://api.supremind.ai/v1/videos/generate \\
   -H "Authorization: Bearer YOUR_API_KEY" \\
   -H "Content-Type: application/json" \\
   -d '{
@@ -421,7 +421,7 @@ console.log(data.video_url);`,
     codeExamples: {
       python: `from openai import OpenAI
 client = OpenAI(
-    base_url="https://api.apimart.ai/v1",
+    base_url="https://api.supremind.ai/v1",
     api_key="YOUR_API_KEY"
 )
 
@@ -431,7 +431,7 @@ response = client.videos.generate(
     duration=15
 )
 print(response.video_url)`,
-      javascript: `const response = await fetch('https://api.apimart.ai/v1/videos/generate', {
+      javascript: `const response = await fetch('https://api.supremind.ai/v1/videos/generate', {
   method: 'POST',
   headers: {
     'Authorization': 'Bearer YOUR_API_KEY',
@@ -446,7 +446,7 @@ print(response.video_url)`,
 
 const data = await response.json();
 console.log(data.video_url);`,
-      curl: `curl https://api.apimart.ai/v1/videos/generate \\
+      curl: `curl https://api.supremind.ai/v1/videos/generate \\
   -H "Authorization: Bearer YOUR_API_KEY" \\
   -H "Content-Type: application/json" \\
   -d '{
@@ -472,7 +472,7 @@ console.log(data.video_url);`,
     codeExamples: {
       python: `from openai import OpenAI
 client = OpenAI(
-    base_url="https://api.apimart.ai/v1",
+    base_url="https://api.supremind.ai/v1",
     api_key="YOUR_API_KEY"
 )
 
@@ -482,7 +482,7 @@ response = client.videos.generate(
     duration=8
 )
 print(response.video_url)`,
-      javascript: `const response = await fetch('https://api.apimart.ai/v1/videos/generate', {
+      javascript: `const response = await fetch('https://api.supremind.ai/v1/videos/generate', {
   method: 'POST',
   headers: {
     'Authorization': 'Bearer YOUR_API_KEY',
@@ -497,7 +497,7 @@ print(response.video_url)`,
 
 const data = await response.json();
 console.log(data.video_url);`,
-      curl: `curl https://api.apimart.ai/v1/videos/generate \\
+      curl: `curl https://api.supremind.ai/v1/videos/generate \\
   -H "Authorization: Bearer YOUR_API_KEY" \\
   -H "Content-Type: application/json" \\
   -d '{
@@ -523,7 +523,7 @@ console.log(data.video_url);`,
     codeExamples: {
       python: `from openai import OpenAI
 client = OpenAI(
-    base_url="https://api.apimart.ai/v1",
+    base_url="https://api.supremind.ai/v1",
     api_key="YOUR_API_KEY"
 )
 
@@ -533,7 +533,7 @@ response = client.videos.generate(
     duration=10
 )
 print(response.video_url)`,
-      javascript: `const response = await fetch('https://api.apimart.ai/v1/videos/generate', {
+      javascript: `const response = await fetch('https://api.supremind.ai/v1/videos/generate', {
   method: 'POST',
   headers: {
     'Authorization': 'Bearer YOUR_API_KEY',
@@ -548,7 +548,7 @@ print(response.video_url)`,
 
 const data = await response.json();
 console.log(data.video_url);`,
-      curl: `curl https://api.apimart.ai/v1/videos/generate \\
+      curl: `curl https://api.supremind.ai/v1/videos/generate \\
   -H "Authorization: Bearer YOUR_API_KEY" \\
   -H "Content-Type: application/json" \\
   -d '{
@@ -576,7 +576,7 @@ console.log(data.video_url);`,
     codeExamples: {
       python: `from openai import OpenAI
 client = OpenAI(
-    base_url="https://api.apimart.ai/v1",
+    base_url="https://api.supremind.ai/v1",
     api_key="YOUR_API_KEY"
 )
 
@@ -589,7 +589,7 @@ print(response.data[0].url)`,
       javascript: `import OpenAI from 'openai';
 
 const client = new OpenAI({
-  baseURL: 'https://api.apimart.ai/v1',
+  baseURL: 'https://api.supremind.ai/v1',
   apiKey: 'YOUR_API_KEY',
 });
 
@@ -600,7 +600,7 @@ const response = await client.images.generate({
 });
 
 console.log(response.data[0].url);`,
-      curl: `curl https://api.apimart.ai/v1/images/generations \\
+      curl: `curl https://api.supremind.ai/v1/images/generations \\
   -H "Authorization: Bearer YOUR_API_KEY" \\
   -H "Content-Type: application/json" \\
   -d '{
@@ -626,7 +626,7 @@ console.log(response.data[0].url);`,
     codeExamples: {
       python: `from openai import OpenAI
 client = OpenAI(
-    base_url="https://api.apimart.ai/v1",
+    base_url="https://api.supremind.ai/v1",
     api_key="YOUR_API_KEY"
 )
 
@@ -639,7 +639,7 @@ print(response.data[0].url)`,
       javascript: `import OpenAI from 'openai';
 
 const client = new OpenAI({
-  baseURL: 'https://api.apimart.ai/v1',
+  baseURL: 'https://api.supremind.ai/v1',
   apiKey: 'YOUR_API_KEY',
 });
 
@@ -650,7 +650,7 @@ const response = await client.images.generate({
 });
 
 console.log(response.data[0].url);`,
-      curl: `curl https://api.apimart.ai/v1/images/generations \\
+      curl: `curl https://api.supremind.ai/v1/images/generations \\
   -H "Authorization: Bearer YOUR_API_KEY" \\
   -H "Content-Type: application/json" \\
   -d '{
@@ -676,7 +676,7 @@ console.log(response.data[0].url);`,
     codeExamples: {
       python: `from openai import OpenAI
 client = OpenAI(
-    base_url="https://api.apimart.ai/v1",
+    base_url="https://api.supremind.ai/v1",
     api_key="YOUR_API_KEY"
 )
 
@@ -689,7 +689,7 @@ print(response.data[0].url)`,
       javascript: `import OpenAI from 'openai';
 
 const client = new OpenAI({
-  baseURL: 'https://api.apimart.ai/v1',
+  baseURL: 'https://api.supremind.ai/v1',
   apiKey: 'YOUR_API_KEY',
 });
 
@@ -700,7 +700,7 @@ const response = await client.images.generate({
 });
 
 console.log(response.data[0].url);`,
-      curl: `curl https://api.apimart.ai/v1/images/generations \\
+      curl: `curl https://api.supremind.ai/v1/images/generations \\
   -H "Authorization: Bearer YOUR_API_KEY" \\
   -H "Content-Type: application/json" \\
   -d '{
@@ -726,7 +726,7 @@ console.log(response.data[0].url);`,
     codeExamples: {
       python: `from openai import OpenAI
 client = OpenAI(
-    base_url="https://api.apimart.ai/v1",
+    base_url="https://api.supremind.ai/v1",
     api_key="YOUR_API_KEY"
 )
 
@@ -739,7 +739,7 @@ print(response.data[0].url)`,
       javascript: `import OpenAI from 'openai';
 
 const client = new OpenAI({
-  baseURL: 'https://api.apimart.ai/v1',
+  baseURL: 'https://api.supremind.ai/v1',
   apiKey: 'YOUR_API_KEY',
 });
 
@@ -750,7 +750,7 @@ const response = await client.images.generate({
 });
 
 console.log(response.data[0].url);`,
-      curl: `curl https://api.apimart.ai/v1/images/generations \\
+      curl: `curl https://api.supremind.ai/v1/images/generations \\
   -H "Authorization: Bearer YOUR_API_KEY" \\
   -H "Content-Type: application/json" \\
   -d '{
@@ -776,7 +776,7 @@ console.log(response.data[0].url);`,
     codeExamples: {
       python: `from openai import OpenAI
 client = OpenAI(
-    base_url="https://api.apimart.ai/v1",
+    base_url="https://api.supremind.ai/v1",
     api_key="YOUR_API_KEY"
 )
 
@@ -791,7 +791,7 @@ print(response.data[0].url)`,
       javascript: `import OpenAI from 'openai';
 
 const client = new OpenAI({
-  baseURL: 'https://api.apimart.ai/v1',
+  baseURL: 'https://api.supremind.ai/v1',
   apiKey: 'YOUR_API_KEY',
 });
 
@@ -804,7 +804,7 @@ const response = await client.images.generate({
 });
 
 console.log(response.data[0].url);`,
-      curl: `curl https://api.apimart.ai/v1/images/generations \\
+      curl: `curl https://api.supremind.ai/v1/images/generations \\
   -H "Authorization: Bearer YOUR_API_KEY" \\
   -H "Content-Type: application/json" \\
   -d '{
@@ -832,7 +832,7 @@ console.log(response.data[0].url);`,
     codeExamples: {
       python: `from openai import OpenAI
 client = OpenAI(
-    base_url="https://api.apimart.ai/v1",
+    base_url="https://api.supremind.ai/v1",
     api_key="YOUR_API_KEY"
 )
 
@@ -846,7 +846,7 @@ print(transcript.text)`,
 import fs from 'fs';
 
 const client = new OpenAI({
-  baseURL: 'https://api.apimart.ai/v1',
+  baseURL: 'https://api.supremind.ai/v1',
   apiKey: 'YOUR_API_KEY',
 });
 
@@ -856,7 +856,7 @@ const transcript = await client.audio.transcriptions.create({
 });
 
 console.log(transcript.text);`,
-      curl: `curl https://api.apimart.ai/v1/audio/transcriptions \\
+      curl: `curl https://api.supremind.ai/v1/audio/transcriptions \\
   -H "Authorization: Bearer YOUR_API_KEY" \\
   -F file="@audio.mp3" \\
   -F model="whisper-1"`

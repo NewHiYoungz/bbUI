@@ -41,12 +41,12 @@ function getPriceDisplay(pricing) {
 
 function getTypeBadgeStyle(type) {
   const styles = {
-    text: 'bg-blue-50 text-blue-600',
-    image: 'bg-emerald-50 text-emerald-600',
-    video: 'bg-violet-50 text-violet-600',
-    audio: 'bg-amber-50 text-amber-600',
+    text: 'bg-blue-900/50 text-blue-300',
+    image: 'bg-emerald-900/50 text-emerald-300',
+    video: 'bg-violet-900/50 text-violet-300',
+    audio: 'bg-amber-900/50 text-amber-300',
   };
-  return styles[type] || 'bg-gray-100 text-text-dark';
+  return styles[type] || 'bg-surface-light text-text-dark';
 }
 
 const Marketplace = () => {
@@ -64,7 +64,6 @@ const Marketplace = () => {
   const [typeFilter, setTypeFilter] = useState('all');
   const [sortOpen, setSortOpen] = useState(false);
 
-  // Apply local type filter on top of context-provided filteredAPIs
   const displayedAPIs = useMemo(() => {
     if (typeFilter === 'all') return filteredAPIs;
     return filteredAPIs.filter((api) => api.type === typeFilter);
@@ -81,11 +80,11 @@ const Marketplace = () => {
   }
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-body">
       {/* ── Hero Section ── */}
-      <section className="bg-bg-subtle border-b border-border-light">
+      <section className="bg-subtle border-b border-border-light">
         <div className="section-container py-16 md:py-20 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-text-dark mb-4">
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
             Explore AI Models
           </h1>
           <p className="text-lg text-text-secondary max-w-2xl mx-auto">
@@ -93,22 +92,21 @@ const Marketplace = () => {
             Find the perfect model for text, image, video, and audio generation.
           </p>
 
-          {/* Hero search */}
           <div className="mt-8 max-w-xl mx-auto relative">
-            <FiSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-text-secondary w-5 h-5" />
+            <FiSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-text-muted w-5 h-5" />
             <input
               type="text"
               placeholder="Search models by name or provider..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-12 pr-4 py-3.5 border-2 border-border-light rounded-[10px] bg-white
-                         text-text-dark placeholder:text-text-secondary
+              className="w-full pl-12 pr-4 py-3.5 border-2 border-border-light rounded-[10px] bg-surface
+                         text-white placeholder:text-text-muted
                          focus:outline-none focus:border-primary transition-colors duration-200"
             />
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery('')}
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-text-secondary hover:text-text-dark transition-colors"
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-text-muted hover:text-white transition-colors"
               >
                 <FiX className="w-5 h-5" />
               </button>
@@ -118,10 +116,9 @@ const Marketplace = () => {
       </section>
 
       {/* ── Filter / Sort Bar ── */}
-      <section className="sticky top-0 z-20 bg-white border-b border-border-light">
+      <section className="sticky top-0 z-20 bg-surface border-b border-border-light">
         <div className="section-container py-4">
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-            {/* Type filter tabs */}
             <div className="flex items-center gap-1 overflow-x-auto pb-1 lg:pb-0">
               {TYPE_TABS.map((tab) => {
                 const Icon = tab.icon;
@@ -135,7 +132,7 @@ const Marketplace = () => {
                                ${
                                  isActive
                                    ? 'bg-primary text-white'
-                                   : 'text-text-secondary hover:text-text-dark hover:bg-bg-subtle'
+                                   : 'text-text-secondary hover:text-white hover:bg-surface-light'
                                }`}
                   >
                     <Icon className="w-4 h-4" />
@@ -145,14 +142,12 @@ const Marketplace = () => {
               })}
             </div>
 
-            {/* Right controls */}
             <div className="flex items-center gap-3">
-              {/* Sort dropdown */}
               <div className="relative">
                 <button
                   onClick={() => setSortOpen(!sortOpen)}
                   className="flex items-center gap-2 px-4 py-2 border-2 border-border-light rounded-[10px]
-                             text-sm font-medium text-text-dark hover:border-primary transition-colors duration-200"
+                             text-sm font-medium text-text-secondary hover:border-primary transition-colors duration-200"
                 >
                   Sort: {activeSort.label}
                   <FiChevronDown
@@ -166,7 +161,7 @@ const Marketplace = () => {
                       className="fixed inset-0 z-10"
                       onClick={() => setSortOpen(false)}
                     />
-                    <div className="absolute right-0 top-full mt-2 w-52 bg-white border-2 border-border-light rounded-[10px] shadow-dropdown z-20 py-1">
+                    <div className="absolute right-0 top-full mt-2 w-52 bg-surface border-2 border-border-light rounded-[10px] shadow-dropdown z-20 py-1">
                       {SORT_OPTIONS.map((option) => (
                         <button
                           key={option.value}
@@ -177,8 +172,8 @@ const Marketplace = () => {
                           className={`w-full text-left px-4 py-2.5 text-sm transition-colors duration-150
                                      ${
                                        sortBy === option.value
-                                         ? 'text-primary font-semibold bg-primary/5'
-                                         : 'text-text-dark hover:bg-bg-subtle'
+                                         ? 'text-primary font-semibold bg-primary/10'
+                                         : 'text-text-secondary hover:bg-surface-light'
                                      }`}
                         >
                           {option.label}
@@ -189,14 +184,13 @@ const Marketplace = () => {
                 )}
               </div>
 
-              {/* View toggle */}
               <div className="flex items-center border-2 border-border-light rounded-[10px] overflow-hidden">
                 <button
                   onClick={() => setViewMode('card')}
                   className={`p-2 transition-colors duration-200 ${
                     viewMode === 'card'
                       ? 'bg-primary text-white'
-                      : 'text-text-secondary hover:text-text-dark'
+                      : 'text-text-secondary hover:text-white'
                   }`}
                   title="Card view"
                 >
@@ -207,7 +201,7 @@ const Marketplace = () => {
                   className={`p-2 transition-colors duration-200 ${
                     viewMode === 'list'
                       ? 'bg-primary text-white'
-                      : 'text-text-secondary hover:text-text-dark'
+                      : 'text-text-secondary hover:text-white'
                   }`}
                   title="List view"
                 >
@@ -221,11 +215,10 @@ const Marketplace = () => {
 
       {/* ── Results Area ── */}
       <section className="section-container py-8">
-        {/* Results count and clear */}
         <div className="flex items-center justify-between mb-6">
           <p className="text-sm text-text-secondary">
             Showing{' '}
-            <span className="font-semibold text-text-dark">{displayedAPIs.length}</span>{' '}
+            <span className="font-semibold text-white">{displayedAPIs.length}</span>{' '}
             {displayedAPIs.length === 1 ? 'model' : 'models'}
           </p>
           {hasActiveFilters && (
@@ -241,10 +234,10 @@ const Marketplace = () => {
         {/* ── Empty State ── */}
         {displayedAPIs.length === 0 && (
           <div className="text-center py-20">
-            <div className="w-16 h-16 bg-bg-subtle rounded-full flex items-center justify-center mx-auto mb-4">
-              <FiSearch className="w-7 h-7 text-text-secondary" />
+            <div className="w-16 h-16 bg-surface rounded-full flex items-center justify-center mx-auto mb-4">
+              <FiSearch className="w-7 h-7 text-text-muted" />
             </div>
-            <h3 className="text-xl font-bold text-text-dark mb-2">No models found</h3>
+            <h3 className="text-xl font-bold text-white mb-2">No models found</h3>
             <p className="text-text-secondary mb-6 max-w-md mx-auto">
               We couldn't find any models matching your current filters. Try adjusting
               your search or clearing filters.
@@ -265,10 +258,9 @@ const Marketplace = () => {
                 className="card-hover flex flex-col animate-fade-up"
                 style={{ animationDelay: `${index * 50}ms` }}
               >
-                {/* Card header */}
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex-1 min-w-0">
-                    <h3 className="text-lg font-bold text-text-dark truncate">
+                    <h3 className="text-lg font-bold text-white truncate">
                       {api.name}
                     </h3>
                     <p className="text-sm text-text-secondary">{api.provider}</p>
@@ -280,31 +272,28 @@ const Marketplace = () => {
                   </span>
                 </div>
 
-                {/* Description */}
-                <p className="text-sm text-text-dark leading-relaxed mb-4 line-clamp-2 flex-1">
+                <p className="text-sm text-text-secondary leading-relaxed mb-4 line-clamp-2 flex-1">
                   {api.description}
                 </p>
 
-                {/* Badges */}
                 <div className="flex flex-wrap gap-2 mb-4">
                   {api.popular && (
-                    <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-accent/10 text-accent">
+                    <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-primary/15 text-primary">
                       <FiStar className="w-3 h-3" />
                       Popular
                     </span>
                   )}
                   {api.new && (
-                    <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-primary/10 text-primary">
+                    <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-blue-500/15 text-blue-300">
                       <FiZap className="w-3 h-3" />
                       New
                     </span>
                   )}
                 </div>
 
-                {/* Footer */}
                 <div className="flex items-center justify-between pt-4 border-t border-border-light mt-auto">
                   <div>
-                    <p className="text-xs text-text-secondary">Starting at</p>
+                    <p className="text-xs text-text-muted">Starting at</p>
                     <p className="text-lg font-bold text-primary">
                       {getPriceDisplay(api.pricing)}
                     </p>
@@ -322,8 +311,7 @@ const Marketplace = () => {
         {/* ── List View ── */}
         {displayedAPIs.length > 0 && viewMode === 'list' && (
           <div className="border-2 border-border-light rounded-[10px] overflow-hidden">
-            {/* Table header */}
-            <div className="hidden md:grid md:grid-cols-12 gap-4 px-6 py-3 bg-bg-subtle border-b border-border-light text-xs font-semibold text-text-secondary uppercase tracking-wide">
+            <div className="hidden md:grid md:grid-cols-12 gap-4 px-6 py-3 bg-surface border-b border-border-light text-xs font-semibold text-text-muted uppercase tracking-wide">
               <div className="col-span-3">Model</div>
               <div className="col-span-4">Description</div>
               <div className="col-span-2">Tags</div>
@@ -331,35 +319,31 @@ const Marketplace = () => {
               <div className="col-span-1" />
             </div>
 
-            {/* Rows */}
             {displayedAPIs.map((api, index) => (
               <div
                 key={api.id}
                 onClick={() => navigate(`/api/${api.id}`)}
                 className={`grid grid-cols-1 md:grid-cols-12 gap-4 px-6 py-4 cursor-pointer
-                           hover:bg-bg-subtle transition-colors duration-150
+                           hover:bg-surface-light transition-colors duration-150
                            animate-fade-up
                            ${index < displayedAPIs.length - 1 ? 'border-b border-border-light' : ''}`}
                 style={{ animationDelay: `${index * 30}ms` }}
               >
-                {/* Model name + provider */}
                 <div className="md:col-span-3 flex items-center gap-3">
                   <div className="min-w-0">
-                    <h3 className="text-sm font-bold text-text-dark truncate">
+                    <h3 className="text-sm font-bold text-white truncate">
                       {api.name}
                     </h3>
                     <p className="text-xs text-text-secondary">{api.provider}</p>
                   </div>
                 </div>
 
-                {/* Description */}
                 <div className="md:col-span-4 flex items-center">
-                  <p className="text-sm text-text-dark line-clamp-1">
+                  <p className="text-sm text-text-secondary line-clamp-1">
                     {api.description}
                   </p>
                 </div>
 
-                {/* Tags */}
                 <div className="md:col-span-2 flex items-center flex-wrap gap-1.5">
                   <span
                     className={`px-2 py-0.5 rounded-full text-xs font-medium capitalize ${getTypeBadgeStyle(api.type)}`}
@@ -367,27 +351,25 @@ const Marketplace = () => {
                     {api.type}
                   </span>
                   {api.popular && (
-                    <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-accent/10 text-accent">
+                    <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-primary/15 text-primary">
                       Popular
                     </span>
                   )}
                   {api.new && (
-                    <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary">
+                    <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-blue-500/15 text-blue-300">
                       New
                     </span>
                   )}
                 </div>
 
-                {/* Price */}
                 <div className="md:col-span-2 flex items-center">
                   <span className="text-sm font-bold text-primary">
                     {getPriceDisplay(api.pricing)}
                   </span>
                 </div>
 
-                {/* Action */}
                 <div className="md:col-span-1 flex items-center justify-end">
-                  <FiArrowRight className="w-4 h-4 text-text-secondary" />
+                  <FiArrowRight className="w-4 h-4 text-text-muted" />
                 </div>
               </div>
             ))}

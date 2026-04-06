@@ -4,7 +4,7 @@
 
 @layer base {
   body {
-    @apply text-text-dark bg-white antialiased;
+    @apply text-text-dark bg-body antialiased;
     font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   }
 
@@ -24,27 +24,27 @@
 
   .btn-primary {
     @apply px-6 py-3 bg-primary text-white font-semibold rounded-[10px]
-           hover:bg-opacity-90 active:scale-[0.97] transition-all duration-200;
+           hover:bg-primary-dark active:scale-[0.97] transition-all duration-200;
   }
 
   .btn-secondary {
-    @apply px-6 py-3 bg-white text-primary font-semibold rounded-[10px]
+    @apply px-6 py-3 bg-transparent text-primary font-semibold rounded-[10px]
            border-2 border-primary hover:bg-primary hover:text-white
            active:scale-[0.97] transition-all duration-200;
   }
 
   .btn-accent {
-    @apply px-6 py-3 bg-accent text-white font-semibold rounded-[10px]
-           hover:bg-opacity-90 active:scale-[0.97] transition-all duration-200;
+    @apply px-6 py-3 bg-primary text-white font-semibold rounded-[10px]
+           hover:bg-primary-dark active:scale-[0.97] transition-all duration-200;
   }
 
   .card-base {
-    @apply bg-white border-2 border-border-light rounded-[10px] p-6
+    @apply bg-surface border-2 border-border-light rounded-[10px] p-6
            transition-all duration-200;
   }
 
   .card-hover {
-    @apply card-base hover:border-primary hover:shadow-lg hover:shadow-primary/5 cursor-pointer;
+    @apply card-base hover:border-border-hover hover:shadow-card-hover cursor-pointer;
   }
 }
 
@@ -64,11 +64,11 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-text-secondary/30 rounded-full;
+  @apply bg-text-muted/30 rounded-full;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-text-secondary/50;
+  @apply bg-text-muted/50;
 }
 
 /* Provider logo scroll animation */
@@ -115,9 +115,183 @@
 
 /* Chat bubble styling */
 .chat-bubble-user {
-  @apply bg-primary/10 text-text-dark rounded-[10px] rounded-br-sm;
+  @apply bg-primary/15 text-text-dark rounded-[10px] rounded-br-sm;
 }
 
 .chat-bubble-ai {
-  @apply bg-gray-50 text-text-dark rounded-[10px] rounded-bl-sm;
+  @apply bg-surface-light text-text-dark rounded-[10px] rounded-bl-sm;
+}
+
+/* Circuit pattern background */
+.circuit-bg {
+  position: relative;
+}
+
+.circuit-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.35;
+  background-image: url("data:image/svg+xml,%3Csvg width='400' height='400' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3Cpattern id='circuit' x='0' y='0' width='200' height='200' patternUnits='userSpaceOnUse'%3E%3Cline x1='0' y1='40' x2='80' y2='40' stroke='%23243656' stroke-width='1'/%3E%3Cline x1='80' y1='40' x2='80' y2='100' stroke='%23243656' stroke-width='1'/%3E%3Cline x1='80' y1='100' x2='160' y2='100' stroke='%23243656' stroke-width='1'/%3E%3Cline x1='160' y1='100' x2='160' y2='160' stroke='%23243656' stroke-width='1'/%3E%3Cline x1='160' y1='160' x2='200' y2='160' stroke='%23243656' stroke-width='1'/%3E%3Cline x1='120' y1='0' x2='120' y2='60' stroke='%23243656' stroke-width='1'/%3E%3Cline x1='120' y1='60' x2='200' y2='60' stroke='%23243656' stroke-width='1'/%3E%3Cline x1='40' y1='140' x2='40' y2='200' stroke='%23243656' stroke-width='1'/%3E%3Cline x1='40' y1='140' x2='80' y2='100' stroke='%23243656' stroke-width='1'/%3E%3Ccircle cx='80' cy='40' r='3' fill='%23F47920' opacity='0.4'/%3E%3Ccircle cx='80' cy='100' r='3' fill='%23F47920' opacity='0.4'/%3E%3Ccircle cx='160' cy='100' r='3' fill='%23F47920' opacity='0.4'/%3E%3Ccircle cx='160' cy='160' r='3' fill='%23F47920' opacity='0.4'/%3E%3Ccircle cx='120' cy='60' r='3' fill='%23F47920' opacity='0.4'/%3E%3Ccircle cx='40' cy='140' r='3' fill='%23F47920' opacity='0.4'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='400' height='400' fill='url(%23circuit)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+}
+
+/* Hero glow */
+.hero-glow {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  background: #F47920;
+  opacity: 0.06;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  animation: pulse-glow 4s ease-in-out infinite;
+}
+
+/* ── Animation Keyframes ── */
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.04; }
+  50% { opacity: 0.09; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes draw-line {
+  from { stroke-dashoffset: var(--line-length); }
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes node-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.4; }
+  50% { transform: scale(1.6); opacity: 0.8; }
+}
+
+@keyframes hero-fade-up {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.6); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Animated circuit lines */
+.circuit-line {
+  stroke-dasharray: var(--line-length);
+  stroke-dashoffset: var(--line-length);
+  animation: draw-line 1.5s ease forwards;
+}
+
+/* Animated circuit nodes */
+.circuit-node {
+  transform-origin: center;
+  animation: node-pulse 2.5s ease-in-out infinite;
+}
+
+/* Hero staggered entrance */
+.hero-fade-up {
+  opacity: 0;
+  animation: hero-fade-up 0.7s ease forwards;
+}
+
+/* Stat float */
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Scale-in for step circles */
+.animate-scale-in {
+  opacity: 0;
+  animation: scale-in 0.5s ease forwards;
+}
+
+/* Code block shimmer */
+.code-shimmer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(244,121,32,0.03) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: shimmer 3s ease-in-out infinite;
+  pointer-events: none;
+  border-radius: 10px;
+}
+
+/* CTA pulse ring */
+.btn-pulse {
+  position: relative;
+}
+
+.btn-pulse::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 14px;
+  border: 2px solid #F47920;
+  opacity: 0;
+  animation: pulse-ring 2.5s ease-out infinite;
+  pointer-events: none;
+}
+
+@keyframes pulse-ring {
+  0% { opacity: 0.6; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.08); }
+}
+
+/* Scroll-triggered reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Card hover lift */
+.card-hover {
+  transition: all 0.25s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+}
+
+/* Icon bounce on hover */
+.icon-bounce:hover {
+  animation: icon-pop 0.4s ease;
+}
+
+@keyframes icon-pop {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+
+/* Provider logo hover */
+.logo-hover {
+  transition: all 0.3s ease;
+}
+
+.logo-hover:hover {
+  color: #8A9AB5 !important;
+  transform: scale(1.15);
+}
+
+/* Tab content fade */
+.tab-fade-enter {
+  animation: fade-up 0.35s ease forwards;
 }

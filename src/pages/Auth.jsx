@@ -12,7 +12,6 @@ const Auth = () => {
   const navigate = useNavigate();
   const { login } = useAuth();
 
-  // Form state
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -21,7 +20,6 @@ const Auth = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  // Error / loading state
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
@@ -93,40 +91,35 @@ const Auth = () => {
   }, [name, email, password, confirmPassword, login, navigate]);
 
   return (
-    <div className="min-h-screen bg-bg-subtle flex items-center justify-center px-4 py-12">
+    <div className="min-h-screen bg-body flex items-center justify-center px-4 py-12">
       <div className="w-full max-w-md">
-        {/* Form Card */}
-        <div className="bg-white border border-border-light rounded-[10px] shadow-card p-8">
+        <div className="bg-surface border border-border-light rounded-[10px] shadow-card p-8">
 
-          {/* Header */}
           <div className="text-center mb-8">
-            <h1 className="text-2xl font-bold text-text-dark">
+            <h1 className="text-2xl font-bold text-white">
               {isSignUp ? 'Create Account' : 'Welcome Back'}
             </h1>
             <p className="text-text-secondary mt-2 text-sm">
               {isSignUp
-                ? 'Get started with APIMart'
-                : 'Sign in to your APIMart account'}
+                ? 'Get started with supremind.ai'
+                : 'Sign in to your supremind.ai account'}
             </p>
           </div>
 
-          {/* Error Message */}
           {error && (
-            <div className="mb-6 p-3 bg-red-50 border border-red-200 rounded-[10px] text-red-600 text-sm text-center">
+            <div className="mb-6 p-3 bg-red-500/10 border border-red-500/30 rounded-[10px] text-red-400 text-sm text-center">
               {error}
             </div>
           )}
 
-          {/* Login Form */}
           {!isSignUp && (
             <form onSubmit={handleLoginSubmit} className="space-y-5">
-              {/* Email / Username */}
               <div>
-                <label htmlFor="login-email" className="block text-sm font-medium text-text-dark mb-1.5">
+                <label htmlFor="login-email" className="block text-sm font-medium text-white mb-1.5">
                   Email or Username
                 </label>
                 <div className="relative">
-                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-text-secondary">
+                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted">
                     <FiMail size={18} />
                   </span>
                   <input
@@ -135,18 +128,17 @@ const Auth = () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="you@example.com"
-                    className="w-full pl-10 pr-4 py-2.5 border border-border-light rounded-[10px] text-text-dark placeholder-text-secondary/60 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors"
+                    className="w-full pl-10 pr-4 py-2.5 border border-border-light rounded-[10px] bg-surface-light text-white placeholder-text-muted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors"
                   />
                 </div>
               </div>
 
-              {/* Password */}
               <div>
-                <label htmlFor="login-password" className="block text-sm font-medium text-text-dark mb-1.5">
+                <label htmlFor="login-password" className="block text-sm font-medium text-white mb-1.5">
                   Password
                 </label>
                 <div className="relative">
-                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-text-secondary">
+                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted">
                     <FiLock size={18} />
                   </span>
                   <input
@@ -155,12 +147,12 @@ const Auth = () => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Enter your password"
-                    className="w-full pl-10 pr-11 py-2.5 border border-border-light rounded-[10px] text-text-dark placeholder-text-secondary/60 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors"
+                    className="w-full pl-10 pr-11 py-2.5 border border-border-light rounded-[10px] bg-surface-light text-white placeholder-text-muted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors"
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword((v) => !v)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-text-secondary hover:text-text-dark transition-colors"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-text-muted hover:text-white transition-colors"
                     aria-label={showPassword ? 'Hide password' : 'Show password'}
                   >
                     {showPassword ? <FiEyeOff size={18} /> : <FiEye size={18} />}
@@ -168,23 +160,21 @@ const Auth = () => {
                 </div>
               </div>
 
-              {/* Remember me + Forgot password */}
               <div className="flex items-center justify-between">
                 <label className="flex items-center gap-2 cursor-pointer select-none">
                   <input
                     type="checkbox"
                     checked={rememberMe}
                     onChange={(e) => setRememberMe(e.target.checked)}
-                    className="w-4 h-4 rounded border-border-light text-primary focus:ring-primary cursor-pointer"
+                    className="w-4 h-4 rounded border-border-light text-primary focus:ring-primary cursor-pointer bg-surface-light"
                   />
-                  <span className="text-sm text-text-dark">Remember me</span>
+                  <span className="text-sm text-text-secondary">Remember me</span>
                 </label>
                 <a href="#" className="text-sm text-primary hover:underline">
                   Forgot password?
                 </a>
               </div>
 
-              {/* Submit */}
               <button
                 type="submit"
                 disabled={isLoading}
@@ -193,35 +183,32 @@ const Auth = () => {
                 {isLoading ? 'Signing in...' : 'Sign In'}
               </button>
 
-              {/* Social Divider */}
               <div className="relative my-6">
                 <div className="absolute inset-0 flex items-center">
                   <div className="w-full border-t border-border-light" />
                 </div>
                 <div className="relative flex justify-center">
-                  <span className="bg-white px-3 text-sm text-text-secondary">Or continue with</span>
+                  <span className="bg-surface px-3 text-sm text-text-muted">Or continue with</span>
                 </div>
               </div>
 
-              {/* Social Buttons */}
               <div className="flex gap-3">
                 <button
                   type="button"
-                  className="flex-1 flex items-center justify-center gap-2 py-2.5 bg-white border border-border-light rounded-[10px] text-text-dark text-sm font-medium hover:bg-bg-subtle active:scale-[0.98] transition-all duration-200"
+                  className="flex-1 flex items-center justify-center gap-2 py-2.5 bg-surface-light border border-border-light rounded-[10px] text-text-secondary text-sm font-medium hover:bg-border-light active:scale-[0.98] transition-all duration-200"
                 >
                   <FcGoogle size={20} />
                   Google
                 </button>
                 <button
                   type="button"
-                  className="flex-1 flex items-center justify-center gap-2 py-2.5 bg-white border border-border-light rounded-[10px] text-text-dark text-sm font-medium hover:bg-bg-subtle active:scale-[0.98] transition-all duration-200"
+                  className="flex-1 flex items-center justify-center gap-2 py-2.5 bg-surface-light border border-border-light rounded-[10px] text-text-secondary text-sm font-medium hover:bg-border-light active:scale-[0.98] transition-all duration-200"
                 >
                   <FiGithub size={20} />
                   GitHub
                 </button>
               </div>
 
-              {/* Switch to Sign Up */}
               <p className="text-center text-sm text-text-secondary mt-6">
                 Don&apos;t have an account?{' '}
                 <button
@@ -235,16 +222,14 @@ const Auth = () => {
             </form>
           )}
 
-          {/* Register Form */}
           {isSignUp && (
             <form onSubmit={handleRegisterSubmit} className="space-y-5">
-              {/* Name */}
               <div>
-                <label htmlFor="register-name" className="block text-sm font-medium text-text-dark mb-1.5">
+                <label htmlFor="register-name" className="block text-sm font-medium text-white mb-1.5">
                   Full Name
                 </label>
                 <div className="relative">
-                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-text-secondary">
+                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted">
                     <FiUser size={18} />
                   </span>
                   <input
@@ -253,18 +238,17 @@ const Auth = () => {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="John Doe"
-                    className="w-full pl-10 pr-4 py-2.5 border border-border-light rounded-[10px] text-text-dark placeholder-text-secondary/60 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors"
+                    className="w-full pl-10 pr-4 py-2.5 border border-border-light rounded-[10px] bg-surface-light text-white placeholder-text-muted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors"
                   />
                 </div>
               </div>
 
-              {/* Email */}
               <div>
-                <label htmlFor="register-email" className="block text-sm font-medium text-text-dark mb-1.5">
+                <label htmlFor="register-email" className="block text-sm font-medium text-white mb-1.5">
                   Email Address
                 </label>
                 <div className="relative">
-                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-text-secondary">
+                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted">
                     <FiMail size={18} />
                   </span>
                   <input
@@ -273,18 +257,17 @@ const Auth = () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="you@example.com"
-                    className="w-full pl-10 pr-4 py-2.5 border border-border-light rounded-[10px] text-text-dark placeholder-text-secondary/60 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors"
+                    className="w-full pl-10 pr-4 py-2.5 border border-border-light rounded-[10px] bg-surface-light text-white placeholder-text-muted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors"
                   />
                 </div>
               </div>
 
-              {/* Password */}
               <div>
-                <label htmlFor="register-password" className="block text-sm font-medium text-text-dark mb-1.5">
+                <label htmlFor="register-password" className="block text-sm font-medium text-white mb-1.5">
                   Password
                 </label>
                 <div className="relative">
-                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-text-secondary">
+                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted">
                     <FiLock size={18} />
                   </span>
                   <input
@@ -293,12 +276,12 @@ const Auth = () => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Minimum 8 characters"
-                    className="w-full pl-10 pr-11 py-2.5 border border-border-light rounded-[10px] text-text-dark placeholder-text-secondary/60 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors"
+                    className="w-full pl-10 pr-11 py-2.5 border border-border-light rounded-[10px] bg-surface-light text-white placeholder-text-muted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors"
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword((v) => !v)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-text-secondary hover:text-text-dark transition-colors"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-text-muted hover:text-white transition-colors"
                     aria-label={showPassword ? 'Hide password' : 'Show password'}
                   >
                     {showPassword ? <FiEyeOff size={18} /> : <FiEye size={18} />}
@@ -306,13 +289,12 @@ const Auth = () => {
                 </div>
               </div>
 
-              {/* Confirm Password */}
               <div>
-                <label htmlFor="register-confirm" className="block text-sm font-medium text-text-dark mb-1.5">
+                <label htmlFor="register-confirm" className="block text-sm font-medium text-white mb-1.5">
                   Confirm Password
                 </label>
                 <div className="relative">
-                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-text-secondary">
+                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted">
                     <FiLock size={18} />
                   </span>
                   <input
@@ -321,12 +303,12 @@ const Auth = () => {
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     placeholder="Re-enter your password"
-                    className="w-full pl-10 pr-11 py-2.5 border border-border-light rounded-[10px] text-text-dark placeholder-text-secondary/60 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors"
+                    className="w-full pl-10 pr-11 py-2.5 border border-border-light rounded-[10px] bg-surface-light text-white placeholder-text-muted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors"
                   />
                   <button
                     type="button"
                     onClick={() => setShowConfirmPassword((v) => !v)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-text-secondary hover:text-text-dark transition-colors"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-text-muted hover:text-white transition-colors"
                     aria-label={showConfirmPassword ? 'Hide password' : 'Show password'}
                   >
                     {showConfirmPassword ? <FiEyeOff size={18} /> : <FiEye size={18} />}
@@ -334,7 +316,6 @@ const Auth = () => {
                 </div>
               </div>
 
-              {/* Submit */}
               <button
                 type="submit"
                 disabled={isLoading}
@@ -343,7 +324,6 @@ const Auth = () => {
                 {isLoading ? 'Creating account...' : 'Create Account'}
               </button>
 
-              {/* Switch to Login */}
               <p className="text-center text-sm text-text-secondary mt-6">
                 Already have an account?{' '}
                 <button

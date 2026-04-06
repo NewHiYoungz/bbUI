@@ -44,9 +44,9 @@ const generateRecentCalls = () => {
 
 export const mockUser = {
   id: 'user_123',
-  email: 'demo@apimart.ai',
+  email: 'demo@supremind.ai',
   name: 'Demo User',
-  apiKey: 'sk-apimart-demo-abc123xyz789',
+  apiKey: 'sk-supremind-demo-abc123xyz789',
   plan: 'Pro',
   joined: '2025-12-15',
   usage: {

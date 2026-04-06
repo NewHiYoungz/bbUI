@@ -7,15 +7,19 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: '#6C5CE7',
-        'primary-dark': '#5A4BD1',
-        accent: '#FF8C69',
-        'accent-dark': '#E87755',
-        'text-dark': '#2D3436',
-        'text-secondary': '#B2BEC3',
-        'border-light': '#DFE6E9',
-        'bg-subtle': '#F8F9FA',
-        'bg-code': '#2D3436',
+        primary: '#F47920',
+        'primary-dark': '#E06A15',
+        accent: '#F47920',
+        'accent-dark': '#E06A15',
+        'text-dark': '#FFFFFF',
+        'text-secondary': '#8A9AB5',
+        'text-muted': '#5A6E8A',
+        'border-light': '#243656',
+        'border-hover': '#344663',
+        'body': '#0B1221',
+        'surface': '#111D32',
+        'surface-light': '#1A2B45',
+        'subtle': '#0F1929',
       },
       borderRadius: {
         'custom': '10px',
@@ -25,9 +29,10 @@ export default {
         mono: ['JetBrains Mono', 'monospace'],
       },
       boxShadow: {
-        'card': '0 2px 8px rgba(0, 0, 0, 0.04)',
-        'card-hover': '0 8px 24px rgba(108, 92, 231, 0.08)',
-        'dropdown': '0 8px 32px rgba(0, 0, 0, 0.08)',
+        'card': '0 2px 8px rgba(0, 0, 0, 0.2)',
+        'card-hover': '0 8px 24px rgba(244, 121, 32, 0.1)',
+        'dropdown': '0 8px 32px rgba(0, 0, 0, 0.3)',
+        'glow': '0 0 60px rgba(244, 121, 32, 0.15)',
       },
       maxWidth: {
         '8xl': '88rem',

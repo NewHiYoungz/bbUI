@@ -32,8 +32,6 @@ const TABS = [
   { id: 'activity', label: 'Activity', icon: FiUsers },
 ];
 
-/* ───────────── helpers ───────────── */
-
 const maskKey = (key) => {
   if (!key || key.length < 12) return key;
   return key.slice(0, 7) + '••••••••••••' + key.slice(-4);
@@ -57,24 +55,22 @@ const formatTime = (iso) =>
 const statusBadge = (status) => {
   if (status >= 200 && status < 300)
     return (
-      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-700">
+      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-500/15 text-green-400">
         {status}
       </span>
     );
   if (status === 429)
     return (
-      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-700">
+      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-500/15 text-yellow-400">
         {status}
       </span>
     );
   return (
-    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-700">
+    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-500/15 text-red-400">
       {status}
     </span>
   );
 };
-
-/* ───────────── Copy Button ───────────── */
 
 function CopyButton({ text, className = '' }) {
   const [copied, setCopied] = useState(false);
@@ -88,19 +84,17 @@ function CopyButton({ text, className = '' }) {
   return (
     <button
       onClick={handleCopy}
-      className={`inline-flex items-center justify-center p-1.5 rounded-md hover:bg-bg-subtle transition-colors ${className}`}
+      className={`inline-flex items-center justify-center p-1.5 rounded-md hover:bg-surface-light transition-colors ${className}`}
       title="Copy to clipboard"
     >
       {copied ? (
-        <FiCheck className="w-4 h-4 text-green-500" />
+        <FiCheck className="w-4 h-4 text-green-400" />
       ) : (
-        <FiCopy className="w-4 h-4 text-text-secondary" />
+        <FiCopy className="w-4 h-4 text-text-muted" />
       )}
     </button>
   );
 }
-
-/* ───────────── Create Key Modal ───────────── */
 
 function CreateKeyModal({ onClose, onCreate }) {
   const [name, setName] = useState('');
@@ -114,22 +108,22 @@ function CreateKeyModal({ onClose, onCreate }) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
-      <div className="absolute inset-0 bg-black/40" onClick={onClose} />
-      <div className="relative bg-white rounded-[10px] shadow-dropdown p-6 w-full max-w-md mx-4">
+      <div className="absolute inset-0 bg-black/60" onClick={onClose} />
+      <div className="relative bg-surface rounded-[10px] shadow-dropdown border border-border-light p-6 w-full max-w-md mx-4">
         <div className="flex items-center justify-between mb-6">
-          <h3 className="text-lg font-semibold text-text-dark">
+          <h3 className="text-lg font-semibold text-white">
             Create API Key
           </h3>
           <button
             onClick={onClose}
-            className="p-1 rounded-md hover:bg-bg-subtle transition-colors"
+            className="p-1 rounded-md hover:bg-surface-light transition-colors"
           >
-            <FiX className="w-5 h-5 text-text-secondary" />
+            <FiX className="w-5 h-5 text-text-muted" />
           </button>
         </div>
 
         <form onSubmit={handleSubmit}>
-          <label className="block text-sm font-medium text-text-dark mb-1.5">
+          <label className="block text-sm font-medium text-white mb-1.5">
             Key Name
           </label>
           <input
@@ -137,7 +131,7 @@ function CreateKeyModal({ onClose, onCreate }) {
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="e.g. Production, Development"
-            className="w-full px-4 py-2.5 border border-border-light rounded-[10px] text-sm text-text-dark placeholder:text-text-secondary focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+            className="w-full px-4 py-2.5 border border-border-light rounded-[10px] text-sm text-white bg-surface-light placeholder:text-text-muted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary"
             autoFocus
           />
 
@@ -145,7 +139,7 @@ function CreateKeyModal({ onClose, onCreate }) {
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 text-sm font-medium text-text-secondary hover:text-text-dark transition-colors"
+              className="px-4 py-2 text-sm font-medium text-text-secondary hover:text-white transition-colors"
             >
               Cancel
             </button>
@@ -163,10 +157,6 @@ function CreateKeyModal({ onClose, onCreate }) {
   );
 }
 
-/* ═══════════════════ TAB CONTENT ═══════════════════ */
-
-/* ───────────── API Key Tab ───────────── */
-
 function APIKeyTab({ user }) {
   const [showModal, setShowModal] = useState(false);
   const [revealedKeys, setRevealedKeys] = useState({});
@@ -174,14 +164,14 @@ function APIKeyTab({ user }) {
     {
       id: 'key_1',
       name: 'Default Key',
-      key: user?.apiKey || 'sk-apimart-demo-abc123xyz789',
+      key: user?.apiKey || 'sk-supremind-demo-abc123xyz789',
       created: '2025-12-15T10:30:00Z',
       status: 'active',
     },
     {
       id: 'key_2',
       name: 'Development',
-      key: 'sk-apimart-dev-m4n5o6p7q8r9',
+      key: 'sk-supremind-dev-m4n5o6p7q8r9',
       created: '2026-01-08T14:20:00Z',
       status: 'active',
     },
@@ -194,7 +184,7 @@ function APIKeyTab({ user }) {
     const newKey = {
       id: `key_${Date.now()}`,
       name,
-      key: `sk-apimart-${Math.random().toString(36).substring(2, 15)}`,
+      key: `sk-supremind-${Math.random().toString(36).substring(2, 15)}`,
       created: new Date().toISOString(),
       status: 'active',
     };
@@ -203,10 +193,9 @@ function APIKeyTab({ user }) {
 
   return (
     <div>
-      {/* Header */}
       <div className="flex items-start justify-between mb-8">
         <div>
-          <h2 className="text-2xl font-bold text-text-dark">API Key</h2>
+          <h2 className="text-2xl font-bold text-white">API Key</h2>
           <p className="text-text-secondary mt-1">
             The key to the magic world of AI
           </p>
@@ -220,22 +209,21 @@ function APIKeyTab({ user }) {
         </button>
       </div>
 
-      {/* Table */}
-      <div className="bg-white rounded-[10px] border border-border-light overflow-hidden">
+      <div className="bg-surface rounded-[10px] border border-border-light overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-border-light bg-bg-subtle">
-                <th className="text-left px-6 py-3 font-medium text-text-secondary">
+              <tr className="border-b border-border-light bg-subtle">
+                <th className="text-left px-6 py-3 font-medium text-text-muted">
                   Name
                 </th>
-                <th className="text-left px-6 py-3 font-medium text-text-secondary">
+                <th className="text-left px-6 py-3 font-medium text-text-muted">
                   Key
                 </th>
-                <th className="text-left px-6 py-3 font-medium text-text-secondary">
+                <th className="text-left px-6 py-3 font-medium text-text-muted">
                   Created
                 </th>
-                <th className="text-left px-6 py-3 font-medium text-text-secondary">
+                <th className="text-left px-6 py-3 font-medium text-text-muted">
                   Status
                 </th>
               </tr>
@@ -244,25 +232,25 @@ function APIKeyTab({ user }) {
               {keys.map((k) => (
                 <tr
                   key={k.id}
-                  className="border-b border-border-light last:border-b-0 hover:bg-bg-subtle/50 transition-colors"
+                  className="border-b border-border-light last:border-b-0 hover:bg-surface-light/50 transition-colors"
                 >
-                  <td className="px-6 py-4 font-medium text-text-dark">
+                  <td className="px-6 py-4 font-medium text-white">
                     {k.name}
                   </td>
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-2">
-                      <code className="text-xs font-mono text-text-dark bg-bg-subtle px-2 py-1 rounded">
+                      <code className="text-xs font-mono text-text-secondary bg-body px-2 py-1 rounded">
                         {revealedKeys[k.id] ? k.key : maskKey(k.key)}
                       </code>
                       <button
                         onClick={() => toggleReveal(k.id)}
-                        className="p-1 rounded-md hover:bg-bg-subtle transition-colors"
+                        className="p-1 rounded-md hover:bg-surface-light transition-colors"
                         title={revealedKeys[k.id] ? 'Hide key' : 'Reveal key'}
                       >
                         {revealedKeys[k.id] ? (
-                          <FiEyeOff className="w-3.5 h-3.5 text-text-secondary" />
+                          <FiEyeOff className="w-3.5 h-3.5 text-text-muted" />
                         ) : (
-                          <FiEye className="w-3.5 h-3.5 text-text-secondary" />
+                          <FiEye className="w-3.5 h-3.5 text-text-muted" />
                         )}
                       </button>
                       <CopyButton text={k.key} />
@@ -272,7 +260,7 @@ function APIKeyTab({ user }) {
                     {formatDate(k.created)}
                   </td>
                   <td className="px-6 py-4">
-                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-700">
+                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-500/15 text-green-400">
                       {k.status}
                     </span>
                   </td>
@@ -293,8 +281,6 @@ function APIKeyTab({ user }) {
   );
 }
 
-/* ───────────── Usage Logs Tab ───────────── */
-
 function UsageLogsTab() {
   const usageData = useMemo(() => getUsageByDateRange(30), []);
   const recentCalls = useMemo(() => getRecentCalls(10), []);
@@ -314,7 +300,7 @@ function UsageLogsTab() {
   const chartData = useMemo(
     () =>
       usageData.map((d) => ({
-        date: d.date.slice(5), // MM-DD
+        date: d.date.slice(5),
         calls: d.calls,
       })),
     [usageData]
@@ -322,45 +308,31 @@ function UsageLogsTab() {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold text-text-dark mb-6">Usage Logs</h2>
+      <h2 className="text-2xl font-bold text-white mb-6">Usage Logs</h2>
 
-      {/* Stats Row */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         {[
-          {
-            label: 'Total Calls',
-            value: totals.calls.toLocaleString(),
-          },
-          {
-            label: 'Total Tokens',
-            value: totals.tokens.toLocaleString(),
-          },
-          {
-            label: 'Total Cost',
-            value: `$${totals.cost.toFixed(2)}`,
-          },
-          {
-            label: 'Current Month',
-            value: `${mockUser.usage.currentMonth.calls.toLocaleString()} calls`,
-          },
+          { label: 'Total Calls', value: totals.calls.toLocaleString() },
+          { label: 'Total Tokens', value: totals.tokens.toLocaleString() },
+          { label: 'Total Cost', value: `$${totals.cost.toFixed(2)}` },
+          { label: 'Current Month', value: `${mockUser.usage.currentMonth.calls.toLocaleString()} calls` },
         ].map((stat) => (
           <div
             key={stat.label}
-            className="bg-white border border-border-light rounded-[10px] p-5"
+            className="bg-surface border border-border-light rounded-[10px] p-5"
           >
-            <p className="text-xs font-medium text-text-secondary uppercase tracking-wide">
+            <p className="text-xs font-medium text-text-muted uppercase tracking-wide">
               {stat.label}
             </p>
-            <p className="text-xl font-bold text-text-dark mt-1">
+            <p className="text-xl font-bold text-white mt-1">
               {stat.value}
             </p>
           </div>
         ))}
       </div>
 
-      {/* Chart */}
-      <div className="bg-white border border-border-light rounded-[10px] p-6 mb-8">
-        <h3 className="text-sm font-medium text-text-dark mb-4">
+      <div className="bg-surface border border-border-light rounded-[10px] p-6 mb-8">
+        <h3 className="text-sm font-medium text-white mb-4">
           Daily API Calls (Last 30 Days)
         </h3>
         <div className="h-72">
@@ -371,19 +343,19 @@ function UsageLogsTab() {
             >
               <defs>
                 <linearGradient id="callsGrad" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#6C5CE7" stopOpacity={0.15} />
-                  <stop offset="95%" stopColor="#6C5CE7" stopOpacity={0} />
+                  <stop offset="5%" stopColor="#F47920" stopOpacity={0.2} />
+                  <stop offset="95%" stopColor="#F47920" stopOpacity={0} />
                 </linearGradient>
               </defs>
-              <CartesianGrid strokeDasharray="3 3" stroke="#DFE6E9" />
+              <CartesianGrid strokeDasharray="3 3" stroke="#243656" />
               <XAxis
                 dataKey="date"
-                tick={{ fontSize: 11, fill: '#B2BEC3' }}
+                tick={{ fontSize: 11, fill: '#5A6E8A' }}
                 tickLine={false}
-                axisLine={{ stroke: '#DFE6E9' }}
+                axisLine={{ stroke: '#243656' }}
               />
               <YAxis
-                tick={{ fontSize: 11, fill: '#B2BEC3' }}
+                tick={{ fontSize: 11, fill: '#5A6E8A' }}
                 tickLine={false}
                 axisLine={false}
                 width={50}
@@ -391,15 +363,17 @@ function UsageLogsTab() {
               <Tooltip
                 contentStyle={{
                   borderRadius: '10px',
-                  border: '1px solid #DFE6E9',
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
+                  border: '1px solid #243656',
+                  backgroundColor: '#111D32',
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.3)',
                   fontSize: '13px',
+                  color: '#FFFFFF',
                 }}
               />
               <Area
                 type="monotone"
                 dataKey="calls"
-                stroke="#6C5CE7"
+                stroke="#F47920"
                 strokeWidth={2}
                 fill="url(#callsGrad)"
               />
@@ -408,61 +382,38 @@ function UsageLogsTab() {
         </div>
       </div>
 
-      {/* Recent Calls Table */}
-      <div className="bg-white border border-border-light rounded-[10px] overflow-hidden">
+      <div className="bg-surface border border-border-light rounded-[10px] overflow-hidden">
         <div className="px-6 py-4 border-b border-border-light">
-          <h3 className="text-sm font-medium text-text-dark">
+          <h3 className="text-sm font-medium text-white">
             Recent API Calls
           </h3>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-border-light bg-bg-subtle">
-                <th className="text-left px-6 py-3 font-medium text-text-secondary">
-                  Time
-                </th>
-                <th className="text-left px-6 py-3 font-medium text-text-secondary">
-                  Model
-                </th>
-                <th className="text-left px-6 py-3 font-medium text-text-secondary">
-                  Status
-                </th>
-                <th className="text-left px-6 py-3 font-medium text-text-secondary">
-                  Latency
-                </th>
-                <th className="text-left px-6 py-3 font-medium text-text-secondary">
-                  Tokens
-                </th>
-                <th className="text-left px-6 py-3 font-medium text-text-secondary">
-                  Cost
-                </th>
+              <tr className="border-b border-border-light bg-subtle">
+                <th className="text-left px-6 py-3 font-medium text-text-muted">Time</th>
+                <th className="text-left px-6 py-3 font-medium text-text-muted">Model</th>
+                <th className="text-left px-6 py-3 font-medium text-text-muted">Status</th>
+                <th className="text-left px-6 py-3 font-medium text-text-muted">Latency</th>
+                <th className="text-left px-6 py-3 font-medium text-text-muted">Tokens</th>
+                <th className="text-left px-6 py-3 font-medium text-text-muted">Cost</th>
               </tr>
             </thead>
             <tbody>
               {recentCalls.map((call) => (
                 <tr
                   key={call.id}
-                  className="border-b border-border-light last:border-b-0 hover:bg-bg-subtle/50 transition-colors"
+                  className="border-b border-border-light last:border-b-0 hover:bg-surface-light/50 transition-colors"
                 >
-                  <td className="px-6 py-3 text-text-secondary">
-                    {formatTime(call.timestamp)}
-                  </td>
+                  <td className="px-6 py-3 text-text-secondary">{formatTime(call.timestamp)}</td>
                   <td className="px-6 py-3">
-                    <code className="text-xs font-mono text-text-dark">
-                      {call.model}
-                    </code>
+                    <code className="text-xs font-mono text-text-secondary">{call.model}</code>
                   </td>
                   <td className="px-6 py-3">{statusBadge(call.status)}</td>
-                  <td className="px-6 py-3 text-text-secondary">
-                    {call.latency}ms
-                  </td>
-                  <td className="px-6 py-3 text-text-secondary">
-                    {call.tokens}
-                  </td>
-                  <td className="px-6 py-3 text-text-dark font-medium">
-                    ${call.cost}
-                  </td>
+                  <td className="px-6 py-3 text-text-secondary">{call.latency}ms</td>
+                  <td className="px-6 py-3 text-text-secondary">{call.tokens}</td>
+                  <td className="px-6 py-3 text-white font-medium">${call.cost}</td>
                 </tr>
               ))}
             </tbody>
@@ -473,8 +424,6 @@ function UsageLogsTab() {
   );
 }
 
-/* ───────────── Billing Tab ───────────── */
-
 const RECHARGE_PACKAGES = [
   { amount: 5, bonus: 0.25 },
   { amount: 20, bonus: 2 },
@@ -483,30 +432,9 @@ const RECHARGE_PACKAGES = [
 ];
 
 const MOCK_TRANSACTIONS = [
-  {
-    id: 'txn_1',
-    date: '2026-03-01T09:15:00Z',
-    type: 'Recharge',
-    amount: 50.0,
-    bonus: 7.5,
-    method: 'Visa ****4242',
-  },
-  {
-    id: 'txn_2',
-    date: '2026-02-14T17:42:00Z',
-    type: 'Recharge',
-    amount: 20.0,
-    bonus: 2.0,
-    method: 'Visa ****4242',
-  },
-  {
-    id: 'txn_3',
-    date: '2026-01-28T11:30:00Z',
-    type: 'Referral Reward',
-    amount: 5.0,
-    bonus: 0,
-    method: '--',
-  },
+  { id: 'txn_1', date: '2026-03-01T09:15:00Z', type: 'Recharge', amount: 50.0, bonus: 7.5, method: 'Visa ****4242' },
+  { id: 'txn_2', date: '2026-02-14T17:42:00Z', type: 'Recharge', amount: 20.0, bonus: 2.0, method: 'Visa ****4242' },
+  { id: 'txn_3', date: '2026-01-28T11:30:00Z', type: 'Referral Reward', amount: 5.0, bonus: 0, method: '--' },
 ];
 
 function BillingTab() {
@@ -514,40 +442,30 @@ function BillingTab() {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold text-text-dark mb-6">Billing</h2>
+      <h2 className="text-2xl font-bold text-white mb-6">Billing</h2>
 
-      {/* Balance */}
-      <div className="bg-white border border-border-light rounded-[10px] p-8 mb-8 text-center">
-        <p className="text-sm font-medium text-text-secondary uppercase tracking-wide mb-2">
-          Current Balance
-        </p>
-        <p className="text-5xl font-bold text-text-dark">
-          $72.50
-        </p>
+      <div className="bg-surface border border-border-light rounded-[10px] p-8 mb-8 text-center">
+        <p className="text-sm font-medium text-text-muted uppercase tracking-wide mb-2">Current Balance</p>
+        <p className="text-5xl font-bold text-white">$72.50</p>
         <p className="text-sm text-text-secondary mt-2">Available credits</p>
       </div>
 
-      {/* Recharge Packages */}
-      <h3 className="text-lg font-semibold text-text-dark mb-4">
-        Recharge Packages
-      </h3>
+      <h3 className="text-lg font-semibold text-white mb-4">Recharge Packages</h3>
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         {RECHARGE_PACKAGES.map((pkg) => (
           <button
             key={pkg.amount}
             onClick={() => setSelectedPkg(pkg.amount)}
-            className={`relative bg-white border rounded-[10px] p-5 text-left transition-all hover:shadow-card-hover ${
+            className={`relative bg-surface border rounded-[10px] p-5 text-left transition-all hover:shadow-card-hover ${
               selectedPkg === pkg.amount
                 ? 'border-primary ring-1 ring-primary'
                 : 'border-border-light'
             }`}
           >
-            <p className="text-2xl font-bold text-text-dark">${pkg.amount}</p>
-            <p className="text-sm text-text-secondary mt-1">
-              +${pkg.bonus.toFixed(2)} bonus
-            </p>
+            <p className="text-2xl font-bold text-white">${pkg.amount}</p>
+            <p className="text-sm text-text-secondary mt-1">+${pkg.bonus.toFixed(2)} bonus</p>
             {pkg.bonus > 0 && (
-              <span className="absolute top-3 right-3 text-xs font-medium text-accent">
+              <span className="absolute top-3 right-3 text-xs font-medium text-primary">
                 +{Math.round((pkg.bonus / pkg.amount) * 100)}%
               </span>
             )}
@@ -563,51 +481,32 @@ function BillingTab() {
         </div>
       )}
 
-      {/* Transaction History */}
-      <h3 className="text-lg font-semibold text-text-dark mb-4">
-        Transaction History
-      </h3>
-      <div className="bg-white border border-border-light rounded-[10px] overflow-hidden">
+      <h3 className="text-lg font-semibold text-white mb-4">Transaction History</h3>
+      <div className="bg-surface border border-border-light rounded-[10px] overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-border-light bg-bg-subtle">
-                <th className="text-left px-6 py-3 font-medium text-text-secondary">
-                  Date
-                </th>
-                <th className="text-left px-6 py-3 font-medium text-text-secondary">
-                  Type
-                </th>
-                <th className="text-left px-6 py-3 font-medium text-text-secondary">
-                  Amount
-                </th>
-                <th className="text-left px-6 py-3 font-medium text-text-secondary">
-                  Bonus
-                </th>
-                <th className="text-left px-6 py-3 font-medium text-text-secondary">
-                  Method
-                </th>
+              <tr className="border-b border-border-light bg-subtle">
+                <th className="text-left px-6 py-3 font-medium text-text-muted">Date</th>
+                <th className="text-left px-6 py-3 font-medium text-text-muted">Type</th>
+                <th className="text-left px-6 py-3 font-medium text-text-muted">Amount</th>
+                <th className="text-left px-6 py-3 font-medium text-text-muted">Bonus</th>
+                <th className="text-left px-6 py-3 font-medium text-text-muted">Method</th>
               </tr>
             </thead>
             <tbody>
               {MOCK_TRANSACTIONS.map((txn) => (
                 <tr
                   key={txn.id}
-                  className="border-b border-border-light last:border-b-0 hover:bg-bg-subtle/50 transition-colors"
+                  className="border-b border-border-light last:border-b-0 hover:bg-surface-light/50 transition-colors"
                 >
-                  <td className="px-6 py-3 text-text-secondary">
-                    {formatDate(txn.date)}
-                  </td>
-                  <td className="px-6 py-3 text-text-dark">{txn.type}</td>
-                  <td className="px-6 py-3 text-text-dark font-medium">
-                    +${txn.amount.toFixed(2)}
-                  </td>
-                  <td className="px-6 py-3 text-accent font-medium">
+                  <td className="px-6 py-3 text-text-secondary">{formatDate(txn.date)}</td>
+                  <td className="px-6 py-3 text-white">{txn.type}</td>
+                  <td className="px-6 py-3 text-white font-medium">+${txn.amount.toFixed(2)}</td>
+                  <td className="px-6 py-3 text-primary font-medium">
                     {txn.bonus > 0 ? `+$${txn.bonus.toFixed(2)}` : '--'}
                   </td>
-                  <td className="px-6 py-3 text-text-secondary">
-                    {txn.method}
-                  </td>
+                  <td className="px-6 py-3 text-text-secondary">{txn.method}</td>
                 </tr>
               ))}
             </tbody>
@@ -618,40 +517,31 @@ function BillingTab() {
   );
 }
 
-/* ───────────── Activity Tab ───────────── */
-
 function ActivityTab() {
-  const referralLink = 'https://apimart.ai/ref/demo-user-123';
+  const referralLink = 'https://supremind.ai/ref/demo-user-123';
 
   return (
     <div>
-      <h2 className="text-2xl font-bold text-text-dark mb-6">Activity</h2>
+      <h2 className="text-2xl font-bold text-white mb-6">Activity</h2>
 
-      {/* Referral Program */}
-      <div className="bg-white border border-border-light rounded-[10px] p-8 mb-8">
-        <h3 className="text-lg font-semibold text-text-dark mb-2">
-          Referral Program
-        </h3>
+      <div className="bg-surface border border-border-light rounded-[10px] p-8 mb-8">
+        <h3 className="text-lg font-semibold text-white mb-2">Referral Program</h3>
         <p className="text-text-secondary text-sm mb-6 max-w-xl">
-          Invite your friends to APIMart and earn credits. You will receive{' '}
+          Invite your friends to supremind.ai and earn credits. You will receive{' '}
           <span className="font-medium text-primary">$5.00</span> for every
           friend who signs up and makes their first recharge.
         </p>
 
-        {/* Referral Link */}
         <div className="mb-8">
-          <label className="block text-sm font-medium text-text-dark mb-1.5">
-            Your Referral Link
-          </label>
+          <label className="block text-sm font-medium text-white mb-1.5">Your Referral Link</label>
           <div className="flex items-center gap-2">
-            <div className="flex-1 px-4 py-2.5 bg-bg-subtle border border-border-light rounded-[10px] text-sm font-mono text-text-dark truncate">
+            <div className="flex-1 px-4 py-2.5 bg-body border border-border-light rounded-[10px] text-sm font-mono text-text-secondary truncate">
               {referralLink}
             </div>
             <CopyButton text={referralLink} className="border border-border-light px-3 py-2.5 rounded-[10px]" />
           </div>
         </div>
 
-        {/* Stats */}
         <div className="grid grid-cols-3 gap-4">
           {[
             { label: 'Total Invites', value: '12' },
@@ -660,10 +550,10 @@ function ActivityTab() {
           ].map((stat) => (
             <div
               key={stat.label}
-              className="bg-bg-subtle rounded-[10px] p-5 text-center"
+              className="bg-body rounded-[10px] p-5 text-center"
             >
-              <p className="text-2xl font-bold text-text-dark">{stat.value}</p>
-              <p className="text-xs font-medium text-text-secondary mt-1 uppercase tracking-wide">
+              <p className="text-2xl font-bold text-white">{stat.value}</p>
+              <p className="text-xs font-medium text-text-muted mt-1 uppercase tracking-wide">
                 {stat.label}
               </p>
             </div>
@@ -673,8 +563,6 @@ function ActivityTab() {
     </div>
   );
 }
-
-/* ═══════════════════ MAIN DASHBOARD ═══════════════════ */
 
 const Dashboard = () => {
   const { isLoggedIn, user } = useAuth();
@@ -688,7 +576,6 @@ const Dashboard = () => {
 
   const [activeTab, setActiveTab] = useState(initialTab);
 
-  // Sync tab to URL
   useEffect(() => {
     const params = new URLSearchParams(searchParams);
     if (activeTab === 'apikey') {
@@ -720,9 +607,8 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="flex min-h-[calc(100vh-64px)] bg-bg-subtle">
-      {/* Sidebar */}
-      <aside className="w-[240px] shrink-0 bg-white border-r border-border-light">
+    <div className="flex min-h-[calc(100vh-64px)] bg-body">
+      <aside className="w-[240px] shrink-0 bg-surface border-r border-border-light">
         <nav className="py-6">
           <ul className="space-y-1 px-3">
             {TABS.map((tab) => {
@@ -734,8 +620,8 @@ const Dashboard = () => {
                     onClick={() => setActiveTab(tab.id)}
                     className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-[10px] text-sm font-medium transition-colors ${
                       isActive
-                        ? 'bg-primary/10 text-primary'
-                        : 'text-text-secondary hover:bg-bg-subtle hover:text-text-dark'
+                        ? 'bg-primary/15 text-primary'
+                        : 'text-text-secondary hover:bg-surface-light hover:text-white'
                     }`}
                   >
                     <Icon className="w-4.5 h-4.5" />
@@ -748,7 +634,6 @@ const Dashboard = () => {
         </nav>
       </aside>
 
-      {/* Content */}
       <main className="flex-1 p-8 lg:p-10 overflow-y-auto">
         <div className="max-w-5xl">{renderContent()}</div>
       </main>

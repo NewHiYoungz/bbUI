@@ -8,13 +8,11 @@ import 'prismjs/components/prism-javascript';
 import 'prismjs/components/prism-bash';
 import { FiCopy, FiCheck, FiPlay, FiArrowLeft, FiStar, FiZap, FiShield, FiGlobe } from 'react-icons/fi';
 
-/* ──────────────────────────── helpers ──────────────────────────── */
-
 const TYPE_COLORS = {
-  text: 'bg-blue-50 text-blue-700 border border-blue-200',
-  image: 'bg-pink-50 text-pink-700 border border-pink-200',
-  video: 'bg-purple-50 text-purple-700 border border-purple-200',
-  audio: 'bg-amber-50 text-amber-700 border border-amber-200',
+  text: 'bg-blue-900/50 text-blue-300 border border-blue-500/30',
+  image: 'bg-emerald-900/50 text-emerald-300 border border-emerald-500/30',
+  video: 'bg-violet-900/50 text-violet-300 border border-violet-500/30',
+  audio: 'bg-amber-900/50 text-amber-300 border border-amber-500/30',
 };
 
 const formatPrice = (pricing) => {
@@ -37,8 +35,6 @@ const formatPrice = (pricing) => {
   return 'Contact for pricing';
 };
 
-/* ──────────────────────────── copy button ──────────────────────── */
-
 const CopyButton = ({ text, className = '' }) => {
   const [copied, setCopied] = useState(false);
 
@@ -52,7 +48,7 @@ const CopyButton = ({ text, className = '' }) => {
     <button
       onClick={handleCopy}
       className={`inline-flex items-center gap-1.5 text-sm transition-colors duration-200 ${
-        copied ? 'text-green-500' : 'text-text-secondary hover:text-text-dark'
+        copied ? 'text-green-400' : 'text-text-muted hover:text-white'
       } ${className}`}
     >
       {copied ? <FiCheck size={14} /> : <FiCopy size={14} />}
@@ -61,14 +57,12 @@ const CopyButton = ({ text, className = '' }) => {
   );
 };
 
-/* ──────────────────────────── code block ─────────────────────────── */
-
 const CodeBlock = ({ code, language }) => (
   <div className="relative group">
     <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
       <CopyButton text={code} />
     </div>
-    <pre className="bg-bg-code text-white rounded-[10px] p-5 overflow-x-auto text-sm leading-relaxed">
+    <pre className="bg-body text-text-secondary rounded-[10px] p-5 overflow-x-auto text-sm leading-relaxed border border-border-light">
       <code
         className={`language-${language === 'curl' ? 'bash' : language}`}
         dangerouslySetInnerHTML={{
@@ -83,8 +77,6 @@ const CodeBlock = ({ code, language }) => (
   </div>
 );
 
-/* ──────────────────────────── playground: text ───────────────────── */
-
 const TextPlayground = ({ api }) => {
   const [prompt, setPrompt] = useState('');
   const [maxTokens, setMaxTokens] = useState(1024);
@@ -93,23 +85,23 @@ const TextPlayground = ({ api }) => {
   return (
     <div className="space-y-6">
       <div>
-        <label className="block text-sm font-medium text-text-dark mb-2">Prompt</label>
+        <label className="block text-sm font-medium text-white mb-2">Prompt</label>
         <textarea
           value={prompt}
           onChange={(e) => setPrompt(e.target.value)}
           placeholder="Enter your prompt here..."
           rows={5}
-          className="w-full border-2 border-border-light rounded-[10px] p-4 text-sm resize-none
+          className="w-full border-2 border-border-light rounded-[10px] p-4 text-sm resize-none bg-surface-light text-white placeholder:text-text-muted
                      focus:border-primary focus:outline-none transition-colors"
         />
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <div>
-          <label className="block text-sm font-medium text-text-dark mb-2">Model</label>
+          <label className="block text-sm font-medium text-white mb-2">Model</label>
           <select
             className="w-full border-2 border-border-light rounded-[10px] px-4 py-2.5 text-sm
-                       focus:border-primary focus:outline-none bg-white transition-colors"
+                       focus:border-primary focus:outline-none bg-surface-light text-white transition-colors"
             defaultValue={api.id}
           >
             <option value={api.id}>{api.name}</option>
@@ -117,7 +109,7 @@ const TextPlayground = ({ api }) => {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-text-dark mb-2">
+          <label className="block text-sm font-medium text-white mb-2">
             Max Tokens: <span className="text-primary font-semibold">{maxTokens}</span>
           </label>
           <input
@@ -129,7 +121,7 @@ const TextPlayground = ({ api }) => {
             onChange={(e) => setMaxTokens(Number(e.target.value))}
             className="w-full accent-primary"
           />
-          <div className="flex justify-between text-xs text-text-secondary mt-1">
+          <div className="flex justify-between text-xs text-text-muted mt-1">
             <span>1</span>
             <span>4096</span>
           </div>
@@ -137,7 +129,7 @@ const TextPlayground = ({ api }) => {
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-text-dark mb-2">
+        <label className="block text-sm font-medium text-white mb-2">
           Temperature: <span className="text-primary font-semibold">{temperature}</span>
         </label>
         <input
@@ -149,7 +141,7 @@ const TextPlayground = ({ api }) => {
           onChange={(e) => setTemperature(Number(e.target.value))}
           className="w-full accent-primary"
         />
-        <div className="flex justify-between text-xs text-text-secondary mt-1">
+        <div className="flex justify-between text-xs text-text-muted mt-1">
           <span>0 (Deterministic)</span>
           <span>2 (Creative)</span>
         </div>
@@ -160,14 +152,12 @@ const TextPlayground = ({ api }) => {
         Run
       </button>
 
-      <div className="border-2 border-border-light rounded-[10px] p-6 bg-bg-subtle min-h-[120px] flex items-center justify-center">
-        <p className="text-text-secondary text-sm">Response will appear here</p>
+      <div className="border-2 border-border-light rounded-[10px] p-6 bg-body min-h-[120px] flex items-center justify-center">
+        <p className="text-text-muted text-sm">Response will appear here</p>
       </div>
     </div>
   );
 };
-
-/* ──────────────────────────── playground: image ──────────────────── */
 
 const ImagePlayground = () => {
   const [prompt, setPrompt] = useState('');
@@ -177,25 +167,25 @@ const ImagePlayground = () => {
   return (
     <div className="space-y-6">
       <div>
-        <label className="block text-sm font-medium text-text-dark mb-2">Prompt</label>
+        <label className="block text-sm font-medium text-white mb-2">Prompt</label>
         <textarea
           value={prompt}
           onChange={(e) => setPrompt(e.target.value)}
           placeholder="Describe the image you want to generate..."
           rows={4}
-          className="w-full border-2 border-border-light rounded-[10px] p-4 text-sm resize-none
+          className="w-full border-2 border-border-light rounded-[10px] p-4 text-sm resize-none bg-surface-light text-white placeholder:text-text-muted
                      focus:border-primary focus:outline-none transition-colors"
         />
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <div>
-          <label className="block text-sm font-medium text-text-dark mb-2">Size</label>
+          <label className="block text-sm font-medium text-white mb-2">Size</label>
           <select
             value={size}
             onChange={(e) => setSize(e.target.value)}
             className="w-full border-2 border-border-light rounded-[10px] px-4 py-2.5 text-sm
-                       focus:border-primary focus:outline-none bg-white transition-colors"
+                       focus:border-primary focus:outline-none bg-surface-light text-white transition-colors"
           >
             <option value="1024x1024">1024 x 1024</option>
             <option value="512x512">512 x 512</option>
@@ -203,7 +193,7 @@ const ImagePlayground = () => {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-text-dark mb-2">Style</label>
+          <label className="block text-sm font-medium text-white mb-2">Style</label>
           <div className="flex gap-3">
             {['natural', 'vivid', 'anime'].map((s) => (
               <button
@@ -211,8 +201,8 @@ const ImagePlayground = () => {
                 onClick={() => setStyle(s)}
                 className={`px-4 py-2 rounded-[10px] text-sm font-medium border-2 transition-colors ${
                   style === s
-                    ? 'border-primary bg-primary/5 text-primary'
-                    : 'border-border-light text-text-secondary hover:border-primary/40'
+                    ? 'border-primary bg-primary/10 text-primary'
+                    : 'border-border-light text-text-secondary hover:border-border-hover'
                 }`}
               >
                 {s.charAt(0).toUpperCase() + s.slice(1)}
@@ -227,14 +217,12 @@ const ImagePlayground = () => {
         Generate
       </button>
 
-      <div className="border-2 border-border-light rounded-[10px] p-6 bg-bg-subtle min-h-[200px] flex items-center justify-center">
-        <p className="text-text-secondary text-sm">Generated image will appear here</p>
+      <div className="border-2 border-border-light rounded-[10px] p-6 bg-body min-h-[200px] flex items-center justify-center">
+        <p className="text-text-muted text-sm">Generated image will appear here</p>
       </div>
     </div>
   );
 };
-
-/* ──────────────────────────── playground: video ──────────────────── */
 
 const VideoPlayground = () => {
   const [prompt, setPrompt] = useState('');
@@ -244,20 +232,20 @@ const VideoPlayground = () => {
   return (
     <div className="space-y-6">
       <div>
-        <label className="block text-sm font-medium text-text-dark mb-2">Prompt</label>
+        <label className="block text-sm font-medium text-white mb-2">Prompt</label>
         <textarea
           value={prompt}
           onChange={(e) => setPrompt(e.target.value)}
           placeholder="Describe the video you want to generate..."
           rows={4}
-          className="w-full border-2 border-border-light rounded-[10px] p-4 text-sm resize-none
+          className="w-full border-2 border-border-light rounded-[10px] p-4 text-sm resize-none bg-surface-light text-white placeholder:text-text-muted
                      focus:border-primary focus:outline-none transition-colors"
         />
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <div>
-          <label className="block text-sm font-medium text-text-dark mb-2">
+          <label className="block text-sm font-medium text-white mb-2">
             Duration: <span className="text-primary font-semibold">{duration}s</span>
           </label>
           <input
@@ -269,14 +257,14 @@ const VideoPlayground = () => {
             onChange={(e) => setDuration(Number(e.target.value))}
             className="w-full accent-primary"
           />
-          <div className="flex justify-between text-xs text-text-secondary mt-1">
+          <div className="flex justify-between text-xs text-text-muted mt-1">
             <span>5s</span>
             <span>25s</span>
           </div>
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-text-dark mb-2">Aspect Ratio</label>
+          <label className="block text-sm font-medium text-white mb-2">Aspect Ratio</label>
           <div className="flex gap-3">
             {['16:9', '9:16', '1:1'].map((ratio) => (
               <button
@@ -284,8 +272,8 @@ const VideoPlayground = () => {
                 onClick={() => setAspectRatio(ratio)}
                 className={`px-4 py-2 rounded-[10px] text-sm font-medium border-2 transition-colors ${
                   aspectRatio === ratio
-                    ? 'border-primary bg-primary/5 text-primary'
-                    : 'border-border-light text-text-secondary hover:border-primary/40'
+                    ? 'border-primary bg-primary/10 text-primary'
+                    : 'border-border-light text-text-secondary hover:border-border-hover'
                 }`}
               >
                 {ratio}
@@ -300,21 +288,19 @@ const VideoPlayground = () => {
         Generate
       </button>
 
-      <div className="border-2 border-border-light rounded-[10px] p-6 bg-bg-subtle min-h-[200px] flex items-center justify-center">
-        <p className="text-text-secondary text-sm">Generated video will appear here</p>
+      <div className="border-2 border-border-light rounded-[10px] p-6 bg-body min-h-[200px] flex items-center justify-center">
+        <p className="text-text-muted text-sm">Generated video will appear here</p>
       </div>
     </div>
   );
 };
 
-/* ──────────────────────────── playground: audio ──────────────────── */
-
 const AudioPlayground = () => (
   <div className="space-y-6">
     <div>
-      <label className="block text-sm font-medium text-text-dark mb-2">Upload Audio File</label>
+      <label className="block text-sm font-medium text-white mb-2">Upload Audio File</label>
       <div className="border-2 border-dashed border-border-light rounded-[10px] p-8 text-center">
-        <p className="text-text-secondary text-sm">Drag and drop an audio file here, or click to browse</p>
+        <p className="text-text-muted text-sm">Drag and drop an audio file here, or click to browse</p>
         <button className="mt-4 btn-secondary text-sm py-2 px-4">Choose File</button>
       </div>
     </div>
@@ -324,13 +310,11 @@ const AudioPlayground = () => (
       Transcribe
     </button>
 
-    <div className="border-2 border-border-light rounded-[10px] p-6 bg-bg-subtle min-h-[120px] flex items-center justify-center">
-      <p className="text-text-secondary text-sm">Response will appear here</p>
+    <div className="border-2 border-border-light rounded-[10px] p-6 bg-body min-h-[120px] flex items-center justify-center">
+      <p className="text-text-muted text-sm">Response will appear here</p>
     </div>
   </div>
 );
-
-/* ──────────────────────────── tab: playground ────────────────────── */
 
 const PlaygroundTab = ({ api }) => {
   const playgrounds = {
@@ -344,8 +328,6 @@ const PlaygroundTab = ({ api }) => {
   return <Playground api={api} />;
 };
 
-/* ──────────────────────────── tab: introduction ─────────────────── */
-
 const IntroductionTab = ({ api }) => {
   const [openFaq, setOpenFaq] = useState(null);
 
@@ -357,7 +339,7 @@ const IntroductionTab = ({ api }) => {
   ];
 
   const steps = [
-    { num: 1, title: 'Sign Up', desc: 'Create your free APIMart account to get started.' },
+    { num: 1, title: 'Sign Up', desc: 'Create your free supremind.ai account to get started.' },
     { num: 2, title: 'Add Funds', desc: 'Add credits to your account. Pay only for what you use.' },
     { num: 3, title: 'Generate API Key', desc: 'Create a secure API key from your dashboard.' },
     { num: 4, title: 'Make First API Call', desc: 'Use our SDK or REST API to integrate in minutes.' },
@@ -366,7 +348,7 @@ const IntroductionTab = ({ api }) => {
   const faqs = [
     {
       q: `What is ${api.name} and what can it do?`,
-      a: `${api.name} is a ${api.type} model by ${api.provider}. ${api.description} It is available through the APIMart unified API with a single API key.`,
+      a: `${api.name} is a ${api.type} model by ${api.provider}. ${api.description} It is available through the supremind.ai unified API with a single API key.`,
     },
     {
       q: `How much does ${api.name} cost?`,
@@ -374,7 +356,7 @@ const IntroductionTab = ({ api }) => {
     },
     {
       q: 'How do I get started?',
-      a: 'Sign up for a free APIMart account, add funds, generate your API key, and start making requests. Our SDK supports Python, JavaScript, and REST API calls.',
+      a: 'Sign up for a free supremind.ai account, add funds, generate your API key, and start making requests. Our SDK supports Python, JavaScript, and REST API calls.',
     },
     {
       q: 'Is there a rate limit?',
@@ -384,47 +366,44 @@ const IntroductionTab = ({ api }) => {
 
   return (
     <div className="space-y-16">
-      {/* hero */}
       <div className="text-center">
-        <h2 className="text-3xl font-bold text-text-dark mb-3">{api.name}</h2>
+        <h2 className="text-3xl font-bold text-white mb-3">{api.name}</h2>
         <p className="text-lg text-text-secondary mb-2">{formatPrice(api.pricing)}</p>
         <div className="flex flex-wrap justify-center gap-6 mt-8">
           {stats.map((s) => (
             <div key={s.label} className="flex flex-col items-center gap-1">
               <s.icon className="text-primary" size={22} />
-              <span className="text-xl font-bold text-text-dark">{s.value}</span>
+              <span className="text-xl font-bold text-white">{s.value}</span>
               <span className="text-xs text-text-secondary">{s.label}</span>
             </div>
           ))}
         </div>
       </div>
 
-      {/* capabilities */}
       {api.features && api.features.length > 0 && (
         <div>
-          <h3 className="text-xl font-bold text-text-dark mb-6">Capabilities</h3>
+          <h3 className="text-xl font-bold text-white mb-6">Capabilities</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {api.features.map((feat, idx) => (
               <div
                 key={idx}
                 className="border-2 border-border-light rounded-[10px] p-5 hover:border-primary transition-colors"
               >
-                <p className="font-medium text-text-dark">{feat}</p>
+                <p className="font-medium text-white">{feat}</p>
               </div>
             ))}
           </div>
         </div>
       )}
 
-      {/* use cases */}
       {api.useCases && api.useCases.length > 0 && (
         <div>
-          <h3 className="text-xl font-bold text-text-dark mb-6">Use Cases</h3>
+          <h3 className="text-xl font-bold text-white mb-6">Use Cases</h3>
           <div className="flex flex-wrap gap-3">
             {api.useCases.map((uc, idx) => (
               <span
                 key={idx}
-                className="px-4 py-2 bg-bg-subtle border border-border-light rounded-[10px] text-sm text-text-dark"
+                className="px-4 py-2 bg-surface border border-border-light rounded-[10px] text-sm text-text-secondary"
               >
                 {uc}
               </span>
@@ -433,31 +412,29 @@ const IntroductionTab = ({ api }) => {
         </div>
       )}
 
-      {/* getting started */}
       <div>
-        <h3 className="text-xl font-bold text-text-dark mb-6">Getting Started</h3>
+        <h3 className="text-xl font-bold text-white mb-6">Getting Started</h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {steps.map((step) => (
             <div key={step.num} className="border-2 border-border-light rounded-[10px] p-5">
               <div className="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center text-sm font-bold mb-3">
                 {step.num}
               </div>
-              <h4 className="font-semibold text-text-dark mb-1">{step.title}</h4>
+              <h4 className="font-semibold text-white mb-1">{step.title}</h4>
               <p className="text-sm text-text-secondary">{step.desc}</p>
             </div>
           ))}
         </div>
       </div>
 
-      {/* faq */}
       <div>
-        <h3 className="text-xl font-bold text-text-dark mb-6">Frequently Asked Questions</h3>
+        <h3 className="text-xl font-bold text-white mb-6">Frequently Asked Questions</h3>
         <div className="space-y-3">
           {faqs.map((faq, idx) => (
             <div key={idx} className="border-2 border-border-light rounded-[10px] overflow-hidden">
               <button
                 onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
-                className="w-full text-left px-5 py-4 flex items-center justify-between font-medium text-text-dark hover:bg-bg-subtle transition-colors"
+                className="w-full text-left px-5 py-4 flex items-center justify-between font-medium text-white hover:bg-surface-light transition-colors"
               >
                 {faq.q}
                 <span className={`ml-2 transition-transform duration-200 ${openFaq === idx ? 'rotate-45' : ''}`}>+</span>
@@ -474,8 +451,6 @@ const IntroductionTab = ({ api }) => {
     </div>
   );
 };
-
-/* ──────────────────────────── tab: API ───────────────────────────── */
 
 const APITab = ({ api }) => {
   const [lang, setLang] = useState('python');
@@ -495,9 +470,8 @@ const APITab = ({ api }) => {
 
   return (
     <div className="space-y-6">
-      <h3 className="text-xl font-bold text-text-dark">Code Examples</h3>
+      <h3 className="text-xl font-bold text-white">Code Examples</h3>
 
-      {/* language tabs */}
       <div className="flex gap-1 border-b border-border-light">
         {languages.map((l) => (
           <button
@@ -506,7 +480,7 @@ const APITab = ({ api }) => {
             className={`px-4 py-2.5 text-sm font-medium transition-colors relative ${
               lang === l.key
                 ? 'text-primary'
-                : 'text-text-secondary hover:text-text-dark'
+                : 'text-text-secondary hover:text-white'
             }`}
           >
             {l.label}
@@ -517,15 +491,12 @@ const APITab = ({ api }) => {
         ))}
       </div>
 
-      {/* code */}
       {api.codeExamples[lang] && (
         <CodeBlock code={api.codeExamples[lang]} language={lang} />
       )}
     </div>
   );
 };
-
-/* ──────────────────────────── pricing sidebar ───────────────────── */
 
 const PricingSidebar = ({ pricing }) => {
   if (!pricing) return null;
@@ -553,13 +524,13 @@ const PricingSidebar = ({ pricing }) => {
   }
 
   return (
-    <div className="border-2 border-border-light rounded-[10px] p-6 sticky top-8">
-      <h3 className="text-lg font-bold text-text-dark mb-4">Pricing</h3>
+    <div className="border-2 border-border-light rounded-[10px] p-6 sticky top-8 bg-surface">
+      <h3 className="text-lg font-bold text-white mb-4">Pricing</h3>
       <div className="space-y-3">
         {rows.map((row, idx) => (
           <div key={idx} className="flex items-center justify-between text-sm">
             <span className="text-text-secondary">{row.label}</span>
-            <span className="font-semibold text-text-dark">{row.value}</span>
+            <span className="font-semibold text-white">{row.value}</span>
           </div>
         ))}
       </div>
@@ -569,8 +540,6 @@ const PricingSidebar = ({ pricing }) => {
     </div>
   );
 };
-
-/* ──────────────────────────── main component ────────────────────── */
 
 const TABS = [
   { key: 'playground', label: 'Playground' },
@@ -590,11 +559,10 @@ const APIDetail = () => {
     Prism.highlightAll();
   }, [activeTab]);
 
-  /* 404 */
   if (!api) {
     return (
       <div className="section-container py-24 text-center">
-        <h1 className="text-3xl font-bold text-text-dark mb-4">Model not found</h1>
+        <h1 className="text-3xl font-bold text-white mb-4">Model not found</h1>
         <p className="text-text-secondary mb-8">
           The model you are looking for does not exist or has been removed.
         </p>
@@ -618,7 +586,6 @@ const APIDetail = () => {
 
   return (
     <div className="section-container py-10">
-      {/* back link */}
       <button
         onClick={() => navigate(-1)}
         className="inline-flex items-center gap-1.5 text-sm text-text-secondary hover:text-primary transition-colors mb-8"
@@ -627,16 +594,15 @@ const APIDetail = () => {
         Back
       </button>
 
-      {/* ─── header ─── */}
       <div className="mb-8">
         <div className="flex flex-wrap items-center gap-3 mb-2">
-          <h1 className="text-3xl font-bold text-text-dark">{api.name}</h1>
+          <h1 className="text-3xl font-bold text-white">{api.name}</h1>
           <button
             onClick={handleCopyId}
             className={`inline-flex items-center gap-1 text-xs px-2.5 py-1 rounded-md border transition-colors ${
               idCopied
-                ? 'border-green-300 text-green-600 bg-green-50'
-                : 'border-border-light text-text-secondary hover:border-primary hover:text-primary'
+                ? 'border-green-500/30 text-green-400 bg-green-500/10'
+                : 'border-border-light text-text-muted hover:border-primary hover:text-primary'
             }`}
           >
             {idCopied ? <FiCheck size={12} /> : <FiCopy size={12} />}
@@ -645,21 +611,20 @@ const APIDetail = () => {
         </div>
 
         <p className="text-sm text-text-secondary mb-1">by {api.provider}</p>
-        <p className="text-text-dark mb-4 max-w-2xl">{api.description}</p>
+        <p className="text-text-secondary mb-4 max-w-2xl">{api.description}</p>
 
         <div className="flex flex-wrap items-center gap-2">
           <span className={`px-3 py-1 rounded-full text-xs font-medium ${TYPE_COLORS[api.type] || TYPE_COLORS.text}`}>
             {api.type.charAt(0).toUpperCase() + api.type.slice(1)}
           </span>
           {hasCommercialUse && (
-            <span className="px-3 py-1 rounded-full text-xs font-medium bg-green-50 text-green-700 border border-green-200">
+            <span className="px-3 py-1 rounded-full text-xs font-medium bg-green-500/15 text-green-400 border border-green-500/30">
               Commercial use
             </span>
           )}
         </div>
       </div>
 
-      {/* ─── tabs ─── */}
       <div className="flex gap-1 border-b border-border-light mb-8">
         {TABS.map((tab) => (
           <button
@@ -668,7 +633,7 @@ const APIDetail = () => {
             className={`px-5 py-3 text-sm font-medium transition-colors relative ${
               activeTab === tab.key
                 ? 'text-primary'
-                : 'text-text-secondary hover:text-text-dark'
+                : 'text-text-secondary hover:text-white'
             }`}
           >
             {tab.label}
@@ -679,16 +644,13 @@ const APIDetail = () => {
         ))}
       </div>
 
-      {/* ─── body + sidebar ─── */}
       <div className="flex flex-col lg:flex-row gap-8">
-        {/* main content */}
         <div className="flex-1 min-w-0">
           {activeTab === 'playground' && <PlaygroundTab api={api} />}
           {activeTab === 'introduction' && <IntroductionTab api={api} />}
           {activeTab === 'api' && <APITab api={api} />}
         </div>
 
-        {/* sidebar */}
         <div className="w-full lg:w-80 shrink-0">
           <PricingSidebar pricing={api.pricing} />
         </div>
