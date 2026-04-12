@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { mockAPIs, getAPIsByType } from '../data/mockAPIs';
-import { FiArrowRight, FiZap, FiLayers, FiCode, FiShield, FiBook, FiDollarSign, FiChevronDown, FiCopy, FiCheck } from 'react-icons/fi';
+import { FiArrowRight, FiZap, FiLayers, FiCode, FiShield, FiBook, FiLock, FiChevronDown, FiCopy, FiCheck } from 'react-icons/fi';
 import copy from 'copy-to-clipboard';
 
 // ── useInView hook ──
@@ -76,6 +76,75 @@ const AnimatedCircuit = ({ className = '' }) => {
   );
 };
 
+// ── Wave Section Divider ──
+const WaveDivider = ({ topColor = '#0B1221', bottomColor = '#0F1929' }) => (
+  <div className="w-full leading-[0]">
+    <svg viewBox="0 0 1440 48" preserveAspectRatio="none" className="w-full block" style={{ height: 48 }}>
+      <rect width="1440" height="48" fill={topColor} />
+      <path d="M0 18C180 46 360 42 540 28C720 14 900 6 1080 22C1200 34 1360 42 1440 18V48H0Z" fill={bottomColor} />
+    </svg>
+  </div>
+);
+
+// ── Floating Decorative Shapes ──
+const FloatingShapes = ({ variant = 'a' }) => {
+  const sets = {
+    a: [
+      <svg key="a1" className="absolute top-[8%] left-[3%] w-7 h-7 animate-drift pointer-events-none" style={{ animationDuration: '20s' }} viewBox="0 0 28 28" fill="none"><polygon points="14,0 28,7 28,21 14,28 0,21 0,7" stroke="#F47920" strokeWidth="1" opacity="0.12" /></svg>,
+      <svg key="a2" className="absolute top-[22%] right-[4%] w-5 h-5 animate-drift pointer-events-none" style={{ animationDelay: '3s', animationDuration: '24s' }} viewBox="0 0 22 22" fill="none"><rect x="3" y="3" width="16" height="16" transform="rotate(45 11 11)" stroke="#F47920" strokeWidth="1" opacity="0.1" /></svg>,
+      <svg key="a3" className="absolute bottom-[18%] left-[5%] w-5 h-5 animate-drift-reverse pointer-events-none" style={{ animationDelay: '1.5s', animationDuration: '22s' }} viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8" stroke="#243656" strokeWidth="1.5" opacity="0.3" /></svg>,
+      <svg key="a4" className="absolute bottom-[25%] right-[6%] w-6 h-6 animate-drift pointer-events-none" style={{ animationDelay: '4s', animationDuration: '18s' }} viewBox="0 0 24 24" fill="none"><polygon points="12,2 22,20 2,20" stroke="#243656" strokeWidth="1" opacity="0.15" /></svg>,
+      <svg key="a5" className="absolute top-[55%] left-[8%] w-4 h-4 animate-drift-reverse pointer-events-none" style={{ animationDelay: '2s', animationDuration: '26s' }} viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="5" stroke="#F47920" strokeWidth="1" opacity="0.15" /></svg>,
+    ],
+    b: [
+      <svg key="b1" className="absolute top-[12%] right-[5%] w-6 h-6 animate-drift pointer-events-none" style={{ animationDuration: '22s' }} viewBox="0 0 24 24" fill="none"><polygon points="12,0 24,6 24,18 12,24 0,18 0,6" stroke="#243656" strokeWidth="1.5" opacity="0.2" /></svg>,
+      <svg key="b2" className="absolute top-[30%] left-[4%] w-5 h-5 animate-drift-reverse pointer-events-none" style={{ animationDelay: '2s', animationDuration: '18s' }} viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7" stroke="#F47920" strokeWidth="1" opacity="0.1" /></svg>,
+      <svg key="b3" className="absolute bottom-[12%] right-[7%] w-4 h-4 animate-drift pointer-events-none" style={{ animationDelay: '3.5s', animationDuration: '25s' }} viewBox="0 0 18 18" fill="none"><rect x="2" y="2" width="14" height="14" transform="rotate(45 9 9)" stroke="#F47920" strokeWidth="1" opacity="0.1" /></svg>,
+      <svg key="b4" className="absolute bottom-[20%] left-[6%] w-5 h-5 animate-drift-reverse pointer-events-none" style={{ animationDelay: '1s', animationDuration: '20s' }} viewBox="0 0 20 20" fill="none"><polygon points="10,1 19,18 1,18" stroke="#243656" strokeWidth="1" opacity="0.15" /></svg>,
+    ],
+    c: [
+      <svg key="c1" className="absolute top-[10%] left-[4%] w-6 h-6 animate-drift pointer-events-none" style={{ animationDuration: '19s' }} viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="2" stroke="#243656" strokeWidth="1" opacity="0.2" /></svg>,
+      <svg key="c2" className="absolute top-[18%] right-[3%] w-7 h-7 animate-drift-reverse pointer-events-none" style={{ animationDelay: '2s', animationDuration: '23s' }} viewBox="0 0 28 28" fill="none"><polygon points="14,0 28,7 28,21 14,28 0,21 0,7" stroke="#F47920" strokeWidth="1" opacity="0.1" /></svg>,
+      <svg key="c3" className="absolute bottom-[22%] left-[7%] w-4 h-4 animate-drift pointer-events-none" style={{ animationDelay: '4s', animationDuration: '21s' }} viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="#F47920" strokeWidth="1" opacity="0.12" /></svg>,
+      <svg key="c4" className="absolute bottom-[15%] right-[5%] w-5 h-5 animate-drift-reverse pointer-events-none" style={{ animationDelay: '1.5s', animationDuration: '26s' }} viewBox="0 0 20 20" fill="none"><line x1="10" y1="1" x2="10" y2="19" stroke="#243656" strokeWidth="1.5" opacity="0.2" /><line x1="1" y1="10" x2="19" y2="10" stroke="#243656" strokeWidth="1.5" opacity="0.2" /></svg>,
+      <svg key="c5" className="absolute top-[60%] right-[9%] w-5 h-5 animate-drift pointer-events-none" style={{ animationDelay: '3s', animationDuration: '17s' }} viewBox="0 0 20 20" fill="none"><polygon points="10,2 18,18 2,18" stroke="#F47920" strokeWidth="1" opacity="0.08" /></svg>,
+    ],
+  };
+  return <>{sets[variant] || sets.a}</>;
+};
+
+// ── Glow Orb ──
+const GlowOrb = ({ size = 300, top, left, right, bottom, color = '#F47920', opacity = 0.04, delay = 0 }) => (
+  <div
+    className="absolute rounded-full pointer-events-none animate-orb"
+    style={{
+      width: size, height: size, top, left, right, bottom,
+      background: color, opacity, filter: `blur(${Math.round(size * 0.4)}px)`,
+      animationDelay: `${delay}s`,
+    }}
+  />
+);
+
+// ── Dot Grid Background ──
+const DotGrid = ({ className = '' }) => (
+  <svg className={`absolute inset-0 w-full h-full pointer-events-none ${className}`}>
+    <defs>
+      <pattern id="dot-grid" x="0" y="0" width="32" height="32" patternUnits="userSpaceOnUse">
+        <circle cx="16" cy="16" r="0.8" fill="#243656" opacity="0.5" />
+      </pattern>
+    </defs>
+    <rect width="100%" height="100%" fill="url(#dot-grid)" />
+  </svg>
+);
+
+// ── Rotating Ring ──
+const RotatingRing = ({ size = 120, className = '' }) => (
+  <svg className={`absolute pointer-events-none animate-spin-slow ${className}`} width={size} height={size} viewBox="0 0 120 120" fill="none">
+    <circle cx="60" cy="60" r="55" stroke="#243656" strokeWidth="0.5" opacity="0.3" strokeDasharray="8 6" />
+    <circle cx="60" cy="60" r="40" stroke="#F47920" strokeWidth="0.5" opacity="0.1" strokeDasharray="4 8" />
+  </svg>
+);
+
 // ── Animated Counter ──
 function AnimatedNumber({ value, visible }) {
   const [display, setDisplay] = useState(value);
@@ -110,9 +179,9 @@ const Hero = () => {
   const navigate = useNavigate();
   const stats = [
     { value: '500+', label: 'AI Models' },
-    { value: '99.9%', label: 'Uptime' },
+    { value: '99.9%', label: 'Uptime SLA' },
     { value: '<50ms', label: 'Latency' },
-    { value: '70%', label: 'Cost Savings' },
+    { value: 'SOC 2', label: 'Certified' },
   ];
   const [statsRef, statsVisible] = useInView();
 
@@ -123,14 +192,20 @@ const Hero = () => {
 
       <div className="hero-glow left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/4" />
 
+      {/* Extra hero decorations */}
+      <RotatingRing size={160} className="top-[5%] left-[8%] opacity-40 hidden md:block" />
+      <RotatingRing size={100} className="bottom-[10%] right-[6%] opacity-30 hidden md:block" />
+      <svg className="absolute top-[15%] right-[12%] w-6 h-6 animate-drift pointer-events-none hidden md:block" style={{ animationDuration: '18s' }} viewBox="0 0 24 24" fill="none"><polygon points="12,0 24,6 24,18 12,24 0,18 0,6" stroke="#F47920" strokeWidth="1" opacity="0.15" /></svg>
+      <svg className="absolute bottom-[20%] left-[14%] w-5 h-5 animate-drift-reverse pointer-events-none hidden md:block" style={{ animationDelay: '2s', animationDuration: '22s' }} viewBox="0 0 20 20" fill="none"><rect x="3" y="3" width="14" height="14" transform="rotate(45 10 10)" stroke="#F47920" strokeWidth="1" opacity="0.12" /></svg>
+
       <div className="section-container section-padding text-center relative z-10">
         <div className="max-w-3xl mx-auto">
           <h1 className="hero-fade-up text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight text-balance" style={{ animationDelay: '0.2s' }}>
             One API for Everything
-            <span className="text-primary"> — Save 30-70%</span>
+            <span className="text-primary"> — Enterprise-Grade</span>
           </h1>
           <p className="hero-fade-up text-lg text-text-secondary mb-10 max-w-xl mx-auto" style={{ animationDelay: '0.5s' }}>
-            One Endpoint &middot; Hundreds of Models &middot; Infinite Possibilities
+            Secure &middot; Reliable &middot; Compliant — 500+ Models Through One Endpoint
           </p>
 
           <div className="hero-fade-up flex flex-col sm:flex-row items-center justify-center gap-4 mb-16" style={{ animationDelay: '0.8s' }}>
@@ -158,6 +233,25 @@ const Hero = () => {
   );
 };
 
+// ── Model Card Image ──
+const ModelCardImage = ({ api, size = 'large' }) => {
+  const src = api.image;
+
+  if (size === 'small') {
+    return (
+      <div className="w-12 h-12 rounded-lg shrink-0 overflow-hidden">
+        <img src={src} alt={api.name} className="w-full h-full object-cover" loading="lazy" />
+      </div>
+    );
+  }
+
+  return (
+    <div className="h-32 rounded-lg mb-4 overflow-hidden">
+      <img src={src} alt={api.name} className="w-full h-full object-cover" loading="lazy" />
+    </div>
+  );
+};
+
 // ── Popular Models ──
 const PopularModels = () => {
   const navigate = useNavigate();
@@ -180,8 +274,10 @@ const PopularModels = () => {
   };
 
   return (
-    <section className="bg-subtle section-padding">
-      <div className="section-container">
+    <section className="bg-subtle section-padding relative overflow-hidden">
+      <FloatingShapes variant="a" />
+      <GlowOrb size={280} top="30%" right="-5%" delay={1} />
+      <div className="section-container relative z-[1]">
         <div ref={ref} className={`text-center mb-12 reveal ${visible ? 'visible' : ''}`}>
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Popular AI API Models</h2>
           <p className="text-text-secondary max-w-xl mx-auto">Access the most popular AI models through a single, unified API.</p>
@@ -195,9 +291,7 @@ const PopularModels = () => {
               className={`card-hover ${visible ? 'animate-fade-up' : 'opacity-0'}`}
               style={{ animationDelay: `${idx * 80}ms` }}
             >
-              <div className="h-32 bg-body rounded-lg mb-4 flex items-center justify-center">
-                <span className="text-3xl font-bold text-text-muted/30">{api.name.charAt(0)}</span>
-              </div>
+              <ModelCardImage api={api} />
 
               <div className="flex items-center justify-between mb-2">
                 <span className="text-xs text-text-secondary font-medium">{api.provider}</span>
@@ -253,7 +347,12 @@ const client = new OpenAI({
   ];
 
   return (
-    <section className="section-container section-padding">
+    <div className="relative overflow-hidden">
+      <DotGrid className="opacity-40" />
+      <GlowOrb size={350} top="-10%" left="-8%" color="#F47920" opacity={0.03} delay={2} />
+      <GlowOrb size={250} bottom="5%" right="-5%" color="#F47920" opacity={0.025} delay={0} />
+      <FloatingShapes variant="b" />
+      <section className="section-container section-padding relative z-[1]">
       <div ref={ref} className={`text-center mb-16 reveal ${visible ? 'visible' : ''}`}>
         <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
           Integrate in 3 Simple Steps
@@ -295,7 +394,7 @@ const client = new OpenAI({
 });
 
 const response = await client.chat.completions.create({
-  model: 'gpt-5',  // or claude-sonnet-4, gemini-3-pro, etc.
+  model: 'gpt-5',  // or claude-sonnet-4-6, gemini-2-5-pro, etc.
   messages: [{ role: 'user', content: 'Hello!' }],
 });`}
           </pre>
@@ -311,6 +410,7 @@ const response = await client.chat.completions.create({
         </Link>
       </div>
     </section>
+    </div>
   );
 };
 
@@ -343,8 +443,11 @@ const APIShowcase = () => {
   };
 
   return (
-    <section className="bg-subtle section-padding">
-      <div className="section-container">
+    <section className="bg-subtle section-padding relative overflow-hidden">
+      <FloatingShapes variant="c" />
+      <RotatingRing size={140} className="top-[5%] right-[3%] opacity-20 hidden lg:block" />
+      <GlowOrb size={220} bottom="10%" left="-4%" delay={3} />
+      <div className="section-container relative z-[1]">
         <div ref={ref} className={`text-center mb-12 reveal ${visible ? 'visible' : ''}`}>
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">APIs for Your Projects</h2>
           <p className="text-text-secondary max-w-xl mx-auto">Powerful AI APIs for text, image, and video generation.</p>
@@ -373,9 +476,7 @@ const APIShowcase = () => {
               onClick={() => navigate(`/api/${api.id}`)}
               className="card-hover flex items-center gap-4"
             >
-              <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-                <span className="text-lg font-bold text-primary">{api.name.charAt(0)}</span>
-              </div>
+              <ModelCardImage api={api} size="small" />
               <div className="flex-1 min-w-0">
                 <div className="flex items-center justify-between mb-1">
                   <h3 className="font-semibold text-white text-sm truncate">{api.name}</h3>
@@ -402,22 +503,26 @@ const ValueProps = () => {
   const [ref, visible] = useInView();
 
   const props = [
-    { icon: FiDollarSign, title: 'Lower Cost', desc: 'Save 30-70% compared to direct provider pricing with our unified API.' },
+    { icon: FiShield, title: 'Enterprise Security', desc: 'SOC 2 Type II compliant with end-to-end encryption, audit trails, and role-based access control.' },
+    { icon: FiLock, title: 'Zero Data Retention', desc: 'Prompts and completions are never stored, logged, or used for training. Full privacy by default.' },
     { icon: FiLayers, title: '500+ Models, One API', desc: 'Access all major AI models through a single endpoint and API key.' },
     { icon: FiCode, title: 'OpenAI-Compatible', desc: 'Drop-in replacement — just change the base URL in your existing code.' },
-    { icon: FiShield, title: 'High Performance', desc: '99.9% uptime SLA with global CDN and <50ms latency worldwide.' },
-    { icon: FiBook, title: 'Developer-Friendly', desc: 'Comprehensive docs, code examples, and interactive playground.' },
-    { icon: FiZap, title: 'Flexible Pricing', desc: 'Pay-as-you-go with no commitments, minimums, or hidden fees.' },
+    { icon: FiZap, title: '99.9% Uptime SLA', desc: 'Enterprise-grade infrastructure with global CDN, automatic failover, and <50ms latency.' },
+    { icon: FiBook, title: 'Compliance Ready', desc: 'GDPR and HIPAA-eligible. IP whitelisting, per-key restrictions, and comprehensive audit logging.' },
   ];
 
   return (
-    <section className="section-container section-padding">
+    <div className="relative overflow-hidden">
+      <FloatingShapes variant="b" />
+      <GlowOrb size={320} top="20%" left="-6%" color="#F47920" opacity={0.035} delay={1} />
+      <RotatingRing size={110} className="bottom-[8%] right-[4%] opacity-25 hidden md:block" />
+      <section className="section-container section-padding relative z-[1]">
       <div ref={ref} className={`text-center mb-12 reveal ${visible ? 'visible' : ''}`}>
         <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-          Why Choose supremind.ai
+          Why Enterprises Choose supremind.ai
         </h2>
         <p className="text-text-secondary max-w-xl mx-auto">
-          The unified AI API platform trusted by developers worldwide.
+          The secure, compliant AI API platform trusted by enterprise teams worldwide.
         </p>
       </div>
 
@@ -433,6 +538,7 @@ const ValueProps = () => {
         ))}
       </div>
     </section>
+    </div>
   );
 };
 
@@ -462,32 +568,36 @@ const FAQ = () => {
   const faqs = [
     {
       q: 'What is supremind.ai and what does it offer?',
-      a: 'supremind.ai is a unified AI API platform that provides access to 500+ AI models from leading providers like OpenAI, Anthropic, Google, and more — all through a single API endpoint. You can use text, image, video, and audio AI models with one API key.',
+      a: 'supremind.ai is an enterprise-grade AI API gateway that provides secure access to 500+ AI models from leading providers like OpenAI, Anthropic, Google, and more — all through a single, compliant API endpoint.',
     },
     {
       q: 'What AI models are available on supremind.ai?',
       a: 'We offer 500+ models including GPT-5, Claude Sonnet 4, Gemini 3 Pro, DALL-E 3, Sora 2, Veo 3.1, Seedream, Nano Banana, Whisper, and many more across text, image, video, and audio generation.',
     },
     {
-      q: 'How does supremind.ai pricing compare to direct providers?',
-      a: 'supremind.ai typically saves you 30-70% compared to using providers directly. We aggregate demand to negotiate better rates and pass the savings to you, with no markups or hidden fees.',
+      q: 'How does supremind.ai handle data privacy and security?',
+      a: 'We enforce zero data retention — your prompts and completions are never stored, logged, or used for model training. All traffic is encrypted with AES-256, and we support IP whitelisting, per-key model restrictions, and comprehensive audit logging.',
+    },
+    {
+      q: 'What compliance certifications does supremind.ai hold?',
+      a: 'supremind.ai is SOC 2 Type II certified and GDPR compliant. We also support HIPAA-eligible configurations for healthcare workloads. Detailed compliance reports are available upon request for enterprise customers.',
     },
     {
       q: 'How do I integrate supremind.ai into my application?',
       a: 'Integration is simple — if you already use the OpenAI SDK, just change the base URL to api.supremind.ai. The API is fully OpenAI-compatible, so no other code changes are needed.',
     },
     {
-      q: 'Why use supremind.ai instead of going directly to each provider?',
-      a: 'supremind.ai gives you a single billing account, one API key, unified documentation, lower costs, and the ability to switch between 500+ models without any code changes. It simplifies operations and reduces costs.',
-    },
-    {
-      q: 'Is my API key and data secure?',
-      a: 'Yes. We use industry-standard encryption, never store your request/response data, and support IP whitelisting and per-key model restrictions for additional security.',
+      q: 'Why do enterprises choose supremind.ai over going directly to each provider?',
+      a: 'supremind.ai gives enterprises a single compliant gateway with centralized access controls, unified audit logging, zero data retention, and the ability to switch between 500+ models without code changes. It simplifies governance and reduces operational overhead.',
     },
   ];
 
   return (
-    <section className="section-container section-padding">
+    <div className="relative overflow-hidden">
+      <GlowOrb size={200} top="10%" right="-3%" color="#F47920" opacity={0.03} delay={2} />
+      <svg className="absolute top-[6%] left-[5%] w-6 h-6 animate-drift pointer-events-none hidden md:block" style={{ animationDuration: '21s' }} viewBox="0 0 24 24" fill="none"><polygon points="12,0 24,6 24,18 12,24 0,18 0,6" stroke="#243656" strokeWidth="1" opacity="0.2" /></svg>
+      <svg className="absolute bottom-[10%] right-[4%] w-5 h-5 animate-drift-reverse pointer-events-none hidden md:block" style={{ animationDelay: '3s', animationDuration: '19s' }} viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7" stroke="#F47920" strokeWidth="1" opacity="0.1" /></svg>
+      <section className="section-container section-padding relative z-[1]">
       <div ref={ref} className={`text-center mb-12 reveal ${visible ? 'visible' : ''}`}>
         <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
           Frequently Asked Questions
@@ -513,6 +623,7 @@ const FAQ = () => {
         ))}
       </div>
     </section>
+    </div>
   );
 };
 
@@ -521,11 +632,17 @@ const Home = () => {
   return (
     <div>
       <Hero />
+      <WaveDivider topColor="#0B1221" bottomColor="#0F1929" />
       <PopularModels />
+      <WaveDivider topColor="#0F1929" bottomColor="#0B1221" />
       <IntegrationSteps />
+      <WaveDivider topColor="#0B1221" bottomColor="#0F1929" />
       <APIShowcase />
+      <WaveDivider topColor="#0F1929" bottomColor="#0B1221" />
       <ValueProps />
+      <WaveDivider topColor="#0B1221" bottomColor="#0F1929" />
       <ProviderLogos />
+      <WaveDivider topColor="#0F1929" bottomColor="#0B1221" />
       <FAQ />
     </div>
   );

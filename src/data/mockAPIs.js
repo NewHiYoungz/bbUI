@@ -1,19 +1,20 @@
 export const mockAPIs = [
   // ── Text / Chat Models ──
   {
-    id: 'gpt-4',
-    name: 'GPT-4',
+    id: 'gpt-4o',
+    name: 'GPT-4o',
     provider: 'OpenAI',
     providerLogo: 'OpenAI',
     category: ['Chat', 'Text Generation'],
     type: 'text',
-    description: 'Most capable GPT model for complex tasks requiring advanced reasoning and creativity.',
-    pricing: { input: 0.03, output: 0.06, unit: 'per 1k tokens' },
-    features: ['128k context window', 'Function calling', 'JSON mode', 'Vision capabilities'],
+    image: '/images/models/gpt-network.jpg',
+    description: 'OpenAI\'s flagship multimodal model with strong performance across text, vision, and audio at an optimized cost.',
+    pricing: { input: 2.50, output: 10.00, cachedInput: 1.25, unit: 'per 1M tokens' },
+    features: ['128k context window', 'Multimodal (text, vision, audio)', 'Function calling', 'JSON mode'],
     contextWindow: '128k tokens',
     popular: true,
     new: false,
-    documentation: 'Complete API reference for GPT-4 with examples and best practices.',
+    documentation: 'Complete API reference for GPT-4o with examples and best practices.',
     codeExamples: {
       python: `from openai import OpenAI
 client = OpenAI(
@@ -22,7 +23,7 @@ client = OpenAI(
 )
 
 response = client.chat.completions.create(
-    model="gpt-4",
+    model="gpt-4o",
     messages=[{"role": "user", "content": "Hello!"}]
 )
 print(response.choices[0].message.content)`,
@@ -34,7 +35,7 @@ const client = new OpenAI({
 });
 
 const response = await client.chat.completions.create({
-  model: 'gpt-4',
+  model: 'gpt-4o',
   messages: [{ role: 'user', content: 'Hello!' }],
 });
 
@@ -43,7 +44,7 @@ console.log(response.choices[0].message.content);`,
   -H "Authorization: Bearer YOUR_API_KEY" \\
   -H "Content-Type: application/json" \\
   -d '{
-    "model": "gpt-4",
+    "model": "gpt-4o",
     "messages": [{"role": "user", "content": "Hello!"}]
   }'`
     }
@@ -55,12 +56,14 @@ console.log(response.choices[0].message.content);`,
     providerLogo: 'OpenAI',
     category: ['Chat', 'Text Generation'],
     type: 'text',
-    description: 'OpenAI\'s most advanced model with superior reasoning, tool use, and multimodal capabilities.',
-    pricing: { input: 0.05, output: 0.15, unit: 'per 1k tokens' },
-    features: ['256k context window', 'Advanced reasoning', 'Tool use', 'Multimodal'],
-    contextWindow: '256k tokens',
+    image: '/images/models/milky-way.jpg',
+    description: 'OpenAI\'s most advanced model with superior reasoning, 1M token context, and unified multimodal capabilities.',
+    pricing: { input: 1.25, output: 10.00, cachedInput: 0.625, reasoning: 10.00, unit: 'per 1M tokens' },
+    features: ['1M context window', 'Advanced reasoning', 'Tool use', 'Multimodal'],
+    contextWindow: '1M tokens',
     popular: true,
     new: true,
+    supportsReasoning: true,
     documentation: 'GPT-5 API documentation with advanced reasoning examples.',
     codeExamples: {
       python: `from openai import OpenAI
@@ -97,19 +100,20 @@ console.log(response.choices[0].message.content);`,
     }
   },
   {
-    id: 'claude-sonnet-4',
-    name: 'Claude Sonnet 4',
+    id: 'claude-sonnet-4-6',
+    name: 'Claude Sonnet 4.6',
     provider: 'Anthropic',
     providerLogo: 'Anthropic',
     category: ['Chat', 'Text Generation'],
     type: 'text',
-    description: 'Anthropic\'s most intelligent model, balancing performance and speed for complex tasks.',
-    pricing: { input: 0.015, output: 0.075, unit: 'per 1k tokens' },
-    features: ['200k context window', 'Extended thinking', 'Vision', 'Tool use'],
-    contextWindow: '200k tokens',
+    image: '/images/models/butterfly-petals.jpg',
+    description: 'Anthropic\'s frontier model delivering top-tier coding, agent, and professional task performance with 1M context.',
+    pricing: { input: 3.00, output: 15.00, cacheWrite: 3.75, cacheRead: 0.30, reasoning: 15.00, unit: 'per 1M tokens' },
+    contextWindow: '1M tokens',
     popular: true,
     new: true,
-    documentation: 'Claude Sonnet 4 documentation with extended thinking examples.',
+    supportsReasoning: true,
+    documentation: 'Claude Sonnet 4.6 documentation with extended thinking examples.',
     codeExamples: {
       python: `from openai import OpenAI
 client = OpenAI(
@@ -118,7 +122,7 @@ client = OpenAI(
 )
 
 message = client.chat.completions.create(
-    model="claude-sonnet-4",
+    model="claude-sonnet-4-6",
     messages=[{"role": "user", "content": "Hello!"}]
 )
 print(message.choices[0].message.content)`,
@@ -130,7 +134,7 @@ const client = new OpenAI({
 });
 
 const message = await client.chat.completions.create({
-  model: 'claude-sonnet-4',
+  model: 'claude-sonnet-4-6',
   messages: [{ role: 'user', content: 'Hello!' }],
 });
 
@@ -139,25 +143,27 @@ console.log(message.choices[0].message.content);`,
   -H "Authorization: Bearer YOUR_API_KEY" \\
   -H "Content-Type: application/json" \\
   -d '{
-    "model": "claude-sonnet-4",
+    "model": "claude-sonnet-4-6",
     "messages": [{"role": "user", "content": "Hello!"}]
   }'`
     }
   },
   {
-    id: 'gemini-3-pro',
-    name: 'Gemini 3 Pro',
+    id: 'gemini-2-5-pro',
+    name: 'Gemini 2.5 Pro',
     provider: 'Google',
     providerLogo: 'Google',
     category: ['Chat', 'Text Generation'],
     type: 'text',
-    description: 'Google\'s most capable AI model for text, code, and multimodal tasks.',
-    pricing: { input: 0.0125, output: 0.05, unit: 'per 1k tokens' },
-    features: ['1M context window', 'Multimodal', 'Code generation', 'Fast responses'],
+    image: '/images/models/mountain-sunset.jpg',
+    description: 'Google\'s frontier reasoning model with 1M context, strong software engineering and agentic reliability.',
+    pricing: { input: 2.50, output: 15.00, cachedInput: 0.625, reasoning: 15.00, unit: 'per 1M tokens' },
+    features: ['1M context window', 'Multimodal', 'Code generation', 'Agentic workflows'],
     contextWindow: '1M tokens',
     popular: true,
     new: false,
-    documentation: 'Gemini 3 Pro API documentation and usage examples.',
+    supportsReasoning: true,
+    documentation: 'Gemini 2.5 Pro API documentation and usage examples.',
     codeExamples: {
       python: `from openai import OpenAI
 client = OpenAI(
@@ -166,7 +172,7 @@ client = OpenAI(
 )
 
 response = client.chat.completions.create(
-    model="gemini-3-pro",
+    model="gemini-2-5-pro",
     messages=[{"role": "user", "content": "Hello!"}]
 )
 print(response.choices[0].message.content)`,
@@ -178,7 +184,7 @@ const client = new OpenAI({
 });
 
 const response = await client.chat.completions.create({
-  model: 'gemini-3-pro',
+  model: 'gemini-2-5-pro',
   messages: [{ role: 'user', content: 'Hello!' }],
 });
 
@@ -187,25 +193,27 @@ console.log(response.choices[0].message.content);`,
   -H "Authorization: Bearer YOUR_API_KEY" \\
   -H "Content-Type: application/json" \\
   -d '{
-    "model": "gemini-3-pro",
+    "model": "gemini-2-5-pro",
     "messages": [{"role": "user", "content": "Hello!"}]
   }'`
     }
   },
   {
     id: 'deepseek-v3',
-    name: 'DeepSeek V3.2',
+    name: 'DeepSeek V3',
     provider: 'DeepSeek',
     providerLogo: 'DeepSeek',
     category: ['Chat', 'Text Generation'],
     type: 'text',
-    description: 'High-performance open model with strong reasoning and coding capabilities at low cost.',
-    pricing: { input: 0.002, output: 0.008, unit: 'per 1k tokens' },
+    image: '/images/models/ai-graphic.jpg',
+    description: 'High-performance open model with strong reasoning and coding at an extremely low cost point.',
+    pricing: { input: 0.14, output: 0.28, cachedInput: 0.014, reasoning: 0.28, unit: 'per 1M tokens' },
     features: ['128k context window', 'Strong coding', 'Math reasoning', 'Multi-language'],
     contextWindow: '128k tokens',
     popular: true,
     new: false,
-    documentation: 'DeepSeek V3.2 API reference.',
+    supportsReasoning: true,
+    documentation: 'DeepSeek V3 API reference.',
     codeExamples: {
       python: `from openai import OpenAI
 client = OpenAI(
@@ -247,10 +255,11 @@ console.log(response.choices[0].message.content);`,
     providerLogo: 'xAI',
     category: ['Chat', 'Text Generation'],
     type: 'text',
-    description: 'xAI\'s latest model with real-time knowledge and witty, direct responses.',
-    pricing: { input: 0.03, output: 0.1, unit: 'per 1k tokens' },
-    features: ['Real-time knowledge', 'Function calling', 'Direct responses', 'Code generation'],
-    contextWindow: '128k tokens',
+    image: '/images/models/classical-painting.jpg',
+    description: 'xAI\'s flagship model with the lowest hallucination rate, strict prompt adherence, and real-time knowledge.',
+    pricing: { input: 3.00, output: 15.00, unit: 'per 1M tokens' },
+    features: ['1M context window', 'Low hallucination', 'Real-time knowledge', 'Code generation'],
+    contextWindow: '1M tokens',
     popular: false,
     new: true,
     documentation: 'Grok-4 API documentation.',
@@ -297,6 +306,7 @@ console.log(response.choices[0].message.content);`,
     providerLogo: 'OpenAI',
     category: ['Video Generation'],
     type: 'video',
+    image: '/images/models/aurora-waterfall.jpg',
     description: 'Advanced text-to-video generation with synchronized audio, enhanced physics simulation, and cinematic controls.',
     pricing: { standard: 0.025, pro: 1.0, unit: 'per generation' },
     features: ['Synchronized audio', 'Physics simulation', 'Cinematic control', 'Image-to-video'],
@@ -358,11 +368,18 @@ console.log(data.video_url);`,
     providerLogo: 'OpenAI',
     category: ['Video Generation'],
     type: 'video',
-    description: 'Professional-grade video generation with 1024p output and up to 25-second videos.',
+    image: '/images/models/cherry-field.jpg',
+    description: 'Professional-grade video generation with 1080p output, up to 25-second videos, and multi-shot continuity.',
     pricing: { standard: 1.0, unit: 'per generation' },
-    features: ['1024p resolution', 'Up to 25s', 'Multi-shot continuity', 'Commercial use'],
+    features: ['1080p resolution', 'Up to 25s', 'Multi-shot continuity', 'Commercial use'],
     popular: true,
     new: true,
+    capabilities: [
+      { title: '1080p Output', desc: 'Professional resolution for commercial and production use' },
+      { title: 'Multi-shot Continuity', desc: 'Maintain consistency across multiple video segments' },
+      { title: 'Extended Duration', desc: 'Generate videos up to 25 seconds long' },
+      { title: 'Commercial License', desc: 'Full commercial usage rights for generated content' },
+    ],
     documentation: 'Sora 2 Pro API reference for professional video workflows.',
     codeExamples: {
       python: `from openai import OpenAI
@@ -412,11 +429,18 @@ console.log(data.video_url);`,
     providerLogo: 'Google',
     category: ['Video Generation'],
     type: 'video',
-    description: 'Google\'s next-gen video model with high fidelity, temporal consistency, and native audio.',
+    image: '/images/models/anime-blossom.jpg',
+    description: 'Google\'s next-gen video model with high fidelity, temporal consistency, native audio, and 4K output.',
     pricing: { standard: 0.05, unit: 'per second' },
     features: ['Native audio', 'Temporal consistency', 'High fidelity', '4K output'],
     popular: true,
     new: true,
+    capabilities: [
+      { title: 'Native Audio', desc: 'Generate synchronized audio tracks alongside video' },
+      { title: 'Temporal Consistency', desc: 'Smooth, coherent motion across all frames' },
+      { title: '4K Output', desc: 'Ultra-high resolution video generation' },
+      { title: 'High Fidelity', desc: 'Photorealistic quality with fine detail preservation' },
+    ],
     documentation: 'Veo 3.1 video generation API documentation.',
     codeExamples: {
       python: `from openai import OpenAI
@@ -463,6 +487,7 @@ console.log(data.video_url);`,
     providerLogo: 'Alibaba',
     category: ['Video Generation'],
     type: 'video',
+    image: '/images/models/sprout-butterfly.jpg',
     description: 'Alibaba\'s open-source video generation model with excellent motion quality and style control.',
     pricing: { standard: 0.02, unit: 'per generation' },
     features: ['Open source', 'Motion quality', 'Style control', 'Fast generation'],
@@ -514,6 +539,7 @@ console.log(data.video_url);`,
     providerLogo: 'MiniMax',
     category: ['Video Generation'],
     type: 'video',
+    image: '/images/models/galaxy-bubbles.jpg',
     description: 'Fast and affordable video generation with natural motion and expressive character animation.',
     pricing: { standard: 0.03, unit: 'per generation' },
     features: ['Character animation', 'Natural motion', 'Fast generation', 'Expressive faces'],
@@ -567,6 +593,7 @@ console.log(data.video_url);`,
     providerLogo: 'ByteDance',
     category: ['Image Generation'],
     type: 'image',
+    image: '/images/models/holo-forest.jpg',
     description: 'ByteDance\'s latest image generation model with photorealistic quality and text rendering.',
     pricing: { standard: 0.028, unit: 'per image' },
     features: ['Photorealistic', 'Text rendering', 'Style control', 'High resolution'],
@@ -617,6 +644,7 @@ console.log(response.data[0].url);`,
     providerLogo: 'ByteDance',
     category: ['Image Generation'],
     type: 'image',
+    image: '/images/models/cherry-field.jpg',
     description: 'Versatile image generation with excellent prompt adherence and artistic styles.',
     pricing: { standard: 0.02, unit: 'per image' },
     features: ['Prompt adherence', 'Artistic styles', 'Fast generation', 'Batch support'],
@@ -667,6 +695,7 @@ console.log(response.data[0].url);`,
     providerLogo: 'ByteDance',
     category: ['Image Generation'],
     type: 'image',
+    image: '/images/models/anime-blossom.jpg',
     description: 'Ultra-fast image generation optimized for speed without sacrificing quality.',
     pricing: { standard: 0.015, unit: 'per image' },
     features: ['Ultra-fast', 'High quality', 'Style variety', 'Inpainting'],
@@ -712,12 +741,13 @@ console.log(response.data[0].url);`,
   },
   {
     id: 'gpt-4o-image',
-    name: '4o Image',
+    name: 'GPT-4o Image',
     provider: 'OpenAI',
     providerLogo: 'OpenAI',
     category: ['Image Generation'],
     type: 'image',
-    description: 'GPT-4o powered image generation with exceptional understanding of complex prompts.',
+    image: '/images/models/gpt-network.jpg',
+    description: 'GPT-4o native image generation with exceptional understanding of complex prompts and text rendering.',
     pricing: { standard: 0.04, unit: 'per image' },
     features: ['Complex prompts', 'Text in images', 'Consistent characters', 'Style transfer'],
     popular: true,
@@ -767,9 +797,10 @@ console.log(response.data[0].url);`,
     providerLogo: 'OpenAI',
     category: ['Image Generation'],
     type: 'image',
-    description: 'State-of-the-art image generation model with exceptional prompt understanding.',
+    image: '/images/models/milky-way.jpg',
+    description: 'Reliable image generation with excellent prompt understanding, multiple resolutions, and HD mode.',
     pricing: { standard: 0.04, hd: 0.08, unit: 'per image' },
-    features: ['1024x1024 resolution', 'Natural language prompts', 'Style control', 'High quality'],
+    features: ['Multiple resolutions (1024, 1792x1024, 1024x1792)', 'Natural language prompts', 'Style control', 'HD quality mode'],
     popular: true,
     new: false,
     documentation: 'DALL-E 3 image generation API reference.',
@@ -817,12 +848,13 @@ console.log(response.data[0].url);`,
 
   // ── Audio Models ──
   {
-    id: 'whisper',
+    id: 'whisper-1',
     name: 'Whisper',
     provider: 'OpenAI',
     providerLogo: 'OpenAI',
     category: ['Audio', 'Speech-to-Text'],
     type: 'audio',
+    image: '/images/models/mountain-sunset.jpg',
     description: 'Robust speech recognition model supporting multiple languages and transcription tasks.',
     pricing: { rate: 0.006, unit: 'per minute' },
     features: ['99 languages', 'High accuracy', 'Noise robust', 'Timestamps'],
@@ -865,10 +897,6 @@ console.log(transcript.text);`,
 ];
 
 export const getAPIById = (id) => mockAPIs.find(api => api.id === id);
-export const getPopularAPIs = () => mockAPIs.filter(api => api.popular);
-export const getNewAPIs = () => mockAPIs.filter(api => api.new);
-export const getAPIsByCategory = (category) =>
-  mockAPIs.filter(api => api.category.includes(category));
 export const getAPIsByType = (type) =>
   mockAPIs.filter(api => api.type === type);
 export const searchAPIs = (query) =>
@@ -877,7 +905,3 @@ export const searchAPIs = (query) =>
     api.description.toLowerCase().includes(query.toLowerCase()) ||
     api.provider.toLowerCase().includes(query.toLowerCase())
   );
-export const getProviders = () =>
-  [...new Set(mockAPIs.map(api => api.provider))];
-export const getCategories = () =>
-  [...new Set(mockAPIs.flatMap(api => api.category))];

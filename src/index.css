@@ -295,3 +295,58 @@
 .tab-fade-enter {
   animation: fade-up 0.35s ease forwards;
 }
+
+/* ── Decorative element animations ── */
+
+/* Floating geometric drift */
+@keyframes drift {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(12px, -18px) rotate(6deg); }
+  50% { transform: translate(-8px, -28px) rotate(-4deg); }
+  75% { transform: translate(-14px, -10px) rotate(3deg); }
+}
+
+@keyframes drift-reverse {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(-10px, 14px) rotate(-5deg); }
+  50% { transform: translate(6px, 22px) rotate(3deg); }
+  75% { transform: translate(12px, 8px) rotate(-2deg); }
+}
+
+.animate-drift {
+  animation: drift 20s ease-in-out infinite;
+}
+
+.animate-drift-reverse {
+  animation: drift-reverse 22s ease-in-out infinite;
+}
+
+/* Orb breathing pulse */
+@keyframes orb-breathe {
+  0%, 100% { transform: scale(1); opacity: 0.04; }
+  50% { transform: scale(1.08); opacity: 0.07; }
+}
+
+.animate-orb {
+  animation: orb-breathe 6s ease-in-out infinite;
+}
+
+/* Rotating ring */
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 40s linear infinite;
+}
+
+/* Data flow dash animation */
+@keyframes dash-flow {
+  from { stroke-dashoffset: 24; }
+  to { stroke-dashoffset: 0; }
+}
+
+.animate-dash-flow {
+  animation: dash-flow 1.5s linear infinite;
+}

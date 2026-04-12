@@ -17,9 +17,9 @@ import {
 
 const MODELS = [
   { id: 'gpt-5', name: 'GPT-5', provider: 'OpenAI' },
-  { id: 'claude-sonnet-4', name: 'Claude Sonnet 4', provider: 'Anthropic' },
-  { id: 'gemini-3-pro', name: 'Gemini 3 Pro', provider: 'Google' },
-  { id: 'deepseek-v3.2', name: 'DeepSeek V3.2', provider: 'DeepSeek' },
+  { id: 'claude-sonnet-4-6', name: 'Claude Sonnet 4.6', provider: 'Anthropic' },
+  { id: 'gemini-2-5-pro', name: 'Gemini 2.5 Pro', provider: 'Google' },
+  { id: 'deepseek-v3', name: 'DeepSeek V3', provider: 'DeepSeek' },
   { id: 'grok-4', name: 'Grok-4', provider: 'xAI' },
 ];
 
