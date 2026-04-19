@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context';
-import { FiMenu, FiX, FiChevronDown, FiExternalLink, FiUser, FiKey, FiLogOut } from 'react-icons/fi';
+import { FiMenu, FiX, FiChevronDown, FiExternalLink, FiUser, FiKey, FiLogOut, FiHome } from 'react-icons/fi';
 
 const navMenus = [
   {
@@ -36,7 +36,6 @@ const navMenus = [
   {
     label: 'API Docs',
     path: '/docs',
-    external: true,
   },
 ];
 
@@ -154,6 +153,9 @@ const Header = () => {
                 {userMenuOpen && (
                   <div className="absolute right-0 top-full mt-1 w-48 bg-surface rounded-[10px] border border-border-light shadow-dropdown py-2 z-50">
                     <Link to="/dashboard" className="flex items-center gap-2 px-4 py-2.5 text-sm text-text-secondary hover:bg-surface-light hover:text-primary transition-colors">
+                      <FiHome className="w-4 h-4" /> Console
+                    </Link>
+                    <Link to="/dashboard?tab=apikey" className="flex items-center gap-2 px-4 py-2.5 text-sm text-text-secondary hover:bg-surface-light hover:text-primary transition-colors">
                       <FiKey className="w-4 h-4" /> API Keys
                     </Link>
                     <Link to="/dashboard?tab=billing" className="flex items-center gap-2 px-4 py-2.5 text-sm text-text-secondary hover:bg-surface-light hover:text-primary transition-colors">

@@ -836,7 +836,7 @@ const APITab = ({ api }) => {
 };
 
 /* ── Pricing Sidebar ── */
-const PricingSidebar = ({ pricing }) => {
+const PricingSidebar = ({ pricing, onGetKey }) => {
   if (!pricing) return null;
 
   const rows = [];
@@ -877,7 +877,7 @@ const PricingSidebar = ({ pricing }) => {
         ))}
       </div>
       <div className="mt-6 pt-4 border-t border-border-light">
-        <button className="btn-primary w-full text-sm py-2.5">Get API Key</button>
+        <button onClick={onGetKey} className="btn-primary w-full text-sm py-2.5">Get API Key</button>
       </div>
     </div>
   );
@@ -893,6 +893,7 @@ const TABS = [
 const APIDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { isLoggedIn } = useAuth();
   const [activeTab, setActiveTab] = useState('playground');
   const [idCopied, setIdCopied] = useState(false);
 
@@ -995,7 +996,13 @@ const APIDetail = () => {
         </div>
 
         <div className="w-full lg:w-80 shrink-0">
-          <PricingSidebar pricing={api.pricing} />
+          <PricingSidebar pricing={api.pricing} onGetKey={() => {
+            if (isLoggedIn) {
+              navigate('/dashboard?tab=apikey');
+            } else {
+              navigate('/login?redirect=' + encodeURIComponent('/dashboard?tab=apikey'));
+            }
+          }} />
         </div>
       </div>
     </div>

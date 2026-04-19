@@ -8,7 +8,7 @@ import App from './App';
 
 class MockIntersectionObserver {
   constructor(callback) { this.callback = callback; }
-  observe() { this.callback([{ isIntersecting: true }]); }
+  observe() { this.callback([{ isIntersecting: true, target: { id: '' } }]); }
   disconnect() {}
   unobserve() {}
 }
@@ -40,6 +40,6 @@ describe('App', () => {
 
   it('renders docs page at /docs', () => {
     renderApp('/docs');
-    expect(screen.getByText('Documentation')).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 1, name: 'Documentation' })).toBeInTheDocument();
   });
 });

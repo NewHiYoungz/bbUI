@@ -18,13 +18,12 @@ describe('Pricing page', () => {
 });
 
 describe('Documentation page', () => {
-  it('renders heading', () => {
+  it('renders documentation content', () => {
     render(
       <TestProviders>
         <Documentation />
       </TestProviders>
     );
-    expect(screen.getByText('Documentation')).toBeInTheDocument();
-    expect(screen.getByText('Coming soon...')).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 1, name: 'Documentation' })).toBeInTheDocument();
   });
 });

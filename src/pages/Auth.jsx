@@ -49,7 +49,8 @@ const Auth = () => {
     try {
       const success = login();
       if (success) {
-        navigate('/dashboard');
+        const redirectTo = searchParams.get('redirect') || '/dashboard';
+        navigate(redirectTo);
       }
     } catch {
       setError('Login failed. Please try again.');
@@ -81,7 +82,8 @@ const Auth = () => {
     try {
       const success = login();
       if (success) {
-        navigate('/dashboard');
+        const redirectTo = searchParams.get('redirect') || '/dashboard';
+        navigate(redirectTo);
       }
     } catch {
       setError('Registration failed. Please try again.');

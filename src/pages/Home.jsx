@@ -1,7 +1,8 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { mockAPIs, getAPIsByType } from '../data/mockAPIs';
-import { FiArrowRight, FiZap, FiLayers, FiCode, FiShield, FiBook, FiLock, FiChevronDown, FiCopy, FiCheck } from 'react-icons/fi';
+import { useAuth } from '../context';
+import { FiArrowRight, FiZap, FiLayers, FiCode, FiShield, FiBook, FiLock, FiChevronDown, FiCopy, FiCheck, FiMessageSquare, FiImage, FiVideo, FiMic } from 'react-icons/fi';
 import copy from 'copy-to-clipboard';
 
 // ── useInView hook ──
@@ -177,6 +178,7 @@ function AnimatedNumber({ value, visible }) {
 // ── Hero Section ──
 const Hero = () => {
   const navigate = useNavigate();
+  const { isLoggedIn } = useAuth();
   const stats = [
     { value: '500+', label: 'AI Models' },
     { value: '99.9%', label: 'Uptime SLA' },
@@ -209,7 +211,7 @@ const Hero = () => {
           </p>
 
           <div className="hero-fade-up flex flex-col sm:flex-row items-center justify-center gap-4 mb-16" style={{ animationDelay: '0.8s' }}>
-            <button onClick={() => navigate('/login?mode=signup')} className="btn-primary btn-pulse text-base px-8 py-3.5 flex items-center gap-2">
+            <button onClick={() => navigate(isLoggedIn ? '/dashboard?tab=apikey' : '/login?redirect=' + encodeURIComponent('/dashboard?tab=apikey'))} className="btn-primary btn-pulse text-base px-8 py-3.5 flex items-center gap-2">
               Get API Key <FiArrowRight />
             </button>
             <button onClick={() => navigate('/docs')} className="btn-secondary text-base px-8 py-3.5">
@@ -233,7 +235,7 @@ const Hero = () => {
   );
 };
 
-// ── Model Card Image ──
+// ── Model Card (small, for APIShowcase) ──
 const ModelCardImage = ({ api, size = 'large' }) => {
   const src = api.image;
 
@@ -245,11 +247,7 @@ const ModelCardImage = ({ api, size = 'large' }) => {
     );
   }
 
-  return (
-    <div className="h-32 rounded-lg mb-4 overflow-hidden">
-      <img src={src} alt={api.name} className="w-full h-full object-cover" loading="lazy" />
-    </div>
-  );
+  return null;
 };
 
 // ── Popular Models ──
@@ -258,11 +256,19 @@ const PopularModels = () => {
   const popular = mockAPIs.filter(a => a.popular).slice(0, 8);
   const [ref, visible] = useInView();
 
-  const typeColors = {
-    text: 'bg-blue-900/50 text-blue-300',
-    image: 'bg-emerald-900/50 text-emerald-300',
-    video: 'bg-violet-900/50 text-violet-300',
-    audio: 'bg-amber-900/50 text-amber-300',
+  const typeConfig = {
+    text:  { icon: FiMessageSquare, label: 'Text',  accent: '#3B82F6', bg: 'rgba(59,130,246,0.1)',  tagBg: 'bg-blue-900/50 text-blue-300' },
+    image: { icon: FiImage,         label: 'Image', accent: '#10B981', bg: 'rgba(16,185,129,0.1)',  tagBg: 'bg-emerald-900/50 text-emerald-300' },
+    video: { icon: FiVideo,         label: 'Video', accent: '#8B5CF6', bg: 'rgba(139,92,246,0.1)',  tagBg: 'bg-violet-900/50 text-violet-300' },
+    audio: { icon: FiMic,           label: 'Audio', accent: '#F59E0B', bg: 'rgba(245,158,11,0.1)',  tagBg: 'bg-amber-900/50 text-amber-300' },
+  };
+
+  const providerAccents = {
+    OpenAI:    '#10B981',
+    Anthropic: '#D97706',
+    Google:    '#3B82F6',
+    DeepSeek:  '#6366F1',
+    ByteDance: '#EC4899',
   };
 
   const getPriceDisplay = (api) => {
@@ -271,6 +277,11 @@ const PopularModels = () => {
     if (pricing.standard) return `$${pricing.standard}`;
     if (pricing.rate) return `$${pricing.rate}`;
     return 'Free';
+  };
+
+  const getPriceUnit = (api) => {
+    const { pricing } = api;
+    return pricing.unit || '';
   };
 
   return (
@@ -284,34 +295,64 @@ const PopularModels = () => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {popular.map((api, idx) => (
-            <div
-              key={api.id}
-              onClick={() => navigate(`/api/${api.id}`)}
-              className={`card-hover ${visible ? 'animate-fade-up' : 'opacity-0'}`}
-              style={{ animationDelay: `${idx * 80}ms` }}
-            >
-              <ModelCardImage api={api} />
+          {popular.map((api, idx) => {
+            const tc = typeConfig[api.type] || typeConfig.text;
+            const TypeIcon = tc.icon;
+            const providerColor = providerAccents[api.provider] || '#F47920';
 
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-xs text-text-secondary font-medium">{api.provider}</span>
-                <span className="text-lg font-bold text-primary">{getPriceDisplay(api)}</span>
-              </div>
+            return (
+              <div
+                key={api.id}
+                onClick={() => navigate(`/api/${api.id}`)}
+                className={`card-hover group relative overflow-hidden ${visible ? 'animate-fade-up' : 'opacity-0'}`}
+                style={{ animationDelay: `${idx * 80}ms` }}
+              >
+                {/* Top accent bar */}
+                <div className="absolute top-0 left-0 right-0 h-[3px] rounded-t-[10px]" style={{ background: `linear-gradient(90deg, ${providerColor}, ${tc.accent})` }} />
 
-              <h3 className="font-semibold text-white mb-1">{api.name}</h3>
-              <p className="text-xs text-text-secondary line-clamp-2 mb-3">{api.description}</p>
+                {/* Header row: icon + badges */}
+                <div className="flex items-start justify-between mb-3">
+                  <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: tc.bg }}>
+                    <TypeIcon className="w-5 h-5" style={{ color: tc.accent }} />
+                  </div>
+                  <div className="flex gap-1.5">
+                    {api.new && <span className="px-1.5 py-0.5 text-[10px] font-bold bg-blue-500/15 text-blue-300 rounded-md">NEW</span>}
+                    <span className={`px-2 py-0.5 rounded-md text-[10px] font-semibold ${tc.tagBg}`}>{tc.label}</span>
+                  </div>
+                </div>
 
-              <div className="flex items-center justify-between">
-                <span className={`px-2 py-0.5 rounded-md text-xs font-medium ${typeColors[api.type] || typeColors.text}`}>
-                  {api.type === 'text' ? 'Text' : api.type === 'image' ? 'Image' : api.type === 'video' ? 'Video' : 'Audio'}
-                </span>
-                <div className="flex gap-1">
-                  {api.popular && <span className="px-1.5 py-0.5 text-[10px] font-bold bg-primary/15 text-primary rounded-md">Popular</span>}
-                  {api.new && <span className="px-1.5 py-0.5 text-[10px] font-bold bg-blue-500/15 text-blue-300 rounded-md">NEW</span>}
+                {/* Model name + provider */}
+                <h3 className="font-semibold text-white text-[15px] mb-0.5 group-hover:text-primary transition-colors">{api.name}</h3>
+                <div className="flex items-center gap-1.5 mb-2.5">
+                  <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: providerColor }} />
+                  <span className="text-xs text-text-secondary font-medium">{api.provider}</span>
+                </div>
+
+                {/* Description */}
+                <p className="text-xs text-text-secondary leading-relaxed line-clamp-2 mb-3">{api.description}</p>
+
+                {/* Feature tags */}
+                {api.features && (
+                  <div className="flex flex-wrap gap-1.5 mb-3">
+                    {api.features.slice(0, 2).map((f) => (
+                      <span key={f} className="px-2 py-0.5 text-[10px] text-text-muted bg-white/[0.04] border border-white/[0.06] rounded-md truncate max-w-[140px]">{f}</span>
+                    ))}
+                  </div>
+                )}
+
+                {/* Bottom: price + context window */}
+                <div className="flex items-end justify-between pt-2.5 border-t border-white/[0.06]">
+                  <div>
+                    <span className="text-lg font-bold text-primary leading-none">{getPriceDisplay(api)}</span>
+                    <span className="text-[10px] text-text-muted ml-1">/{getPriceUnit(api).replace('per ', '')}</span>
+                  </div>
+                  {api.contextWindow && (
+                    <span className="text-[10px] text-text-muted font-mono">{api.contextWindow}</span>
+                  )}
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         <div className="text-center mt-10">
@@ -328,6 +369,8 @@ const PopularModels = () => {
 const IntegrationSteps = () => {
   const [copied, setCopied] = useState(false);
   const [ref, visible] = useInView();
+  const navigate = useNavigate();
+  const { isLoggedIn } = useAuth();
 
   const handleCopy = () => {
     copy(`import OpenAI from 'openai';
@@ -402,9 +445,9 @@ const response = await client.chat.completions.create({
       </div>
 
       <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10">
-        <Link to="/login?mode=signup" className="btn-primary inline-flex items-center gap-2">
+        <button onClick={() => navigate(isLoggedIn ? '/dashboard?tab=apikey' : '/login?redirect=' + encodeURIComponent('/dashboard?tab=apikey'))} className="btn-primary inline-flex items-center gap-2">
           Get API Key <FiArrowRight />
-        </Link>
+        </button>
         <Link to="/docs" className="btn-secondary inline-flex items-center gap-2">
           View Documentation
         </Link>
@@ -419,6 +462,7 @@ const APIShowcase = () => {
   const [activeTab, setActiveTab] = useState('text');
   const [tabKey, setTabKey] = useState(0);
   const navigate = useNavigate();
+  const { isLoggedIn } = useAuth();
   const [ref, visible] = useInView();
 
   const tabs = [
